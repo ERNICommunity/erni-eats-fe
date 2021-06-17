@@ -29,7 +29,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,68 +41,39 @@ class _MyHomePageState extends State<MyHomePage> {
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.data.length > 0) {
-            return Card(
-              child: ListTile(
-                trailing: Container(
-                  height: 80,
-                  width: 80,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage('assets/alfa.png'),
+            return ListView.builder(
+                itemCount: snapshot.data.length,
+                itemBuilder: (context, index) {
+                  Restaurant restaurant = snapshot.data[index];
+                  return Card(
+                    child: ListTile(
+                      trailing: Container(
+                        height: 80,
+                        width: 80,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: AssetImage(restaurant.imgUrl),
+                          ),
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                      title: Text(restaurant.title),
+                      subtitle:
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('${'*' * restaurant.estimation.value} (${restaurant.estimation.votes})'),
+                              Text('${'€' * restaurant.priceCategory} • ${restaurant.type}'),
+                            ],
+                          ),
                     ),
-                    shape: BoxShape.circle,
-                  ),
-                ),
-                title: Text('The Enchanted Nightingale'),
-                subtitle: Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
-              ),
-            );
+                  );
+                });
           }
           return Center();
         },
       ),
     );
   }
-
-  // generateCards(data) {
-  //   var cards = <Card>[];
-  //   var list = new List<int>.generate(data.length, (index) => index + 1);
-  //   list.forEach((element) {
-  //     return new Card(
-  //             child: ListTile(
-  //               trailing: Container(
-  //                 height: 80,
-  //                 width: 80,
-  //                 decoration: BoxDecoration(
-  //                   image: DecorationImage(
-  //                     fit: BoxFit.fill,
-  //                     image: AssetImage('assets/alfa.png'),
-  //                   ),
-  //                   shape: BoxShape.circle,
-  //                 ),
-  //               ),
-  //               title: Text('The Enchanted Nightingale'),
-  //               subtitle: Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
-  //             ),
-  //           );
-  //   })
-  //   // child: Card(
-  //   //                 child: ListTile(
-  //   //                   trailing: Container(
-  //   //                     height: 80,
-  //   //                     width: 80,
-  //   //                     decoration: BoxDecoration(
-  //   //                       image: DecorationImage(
-  //   //                         fit: BoxFit.fill,
-  //   //                         image: AssetImage('assets/alfa.png'),
-  //   //                       ),
-  //   //                       shape: BoxShape.circle,
-  //   //                     ),
-  //   //                   ),
-  //   //                   title: Text('The Enchanted Nightingale'),
-  //   //                   subtitle: Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
-  //   //                 ),
-  //   //               ),
-  // }
 }

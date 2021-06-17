@@ -1,9 +1,10 @@
 Future getRestaurants() async {
   List<Restaurant> restaurants = [
-    Restaurant('Derby pub 1', RestaurantEstimation(3.5, 12), 1, 'Pub', 'assets/alfa.png'),
-    Restaurant('Derby pub 2', RestaurantEstimation(3.5, 12), 1, 'Pub', 'assets/alfa.png'),
-    Restaurant('Derby pub 3', RestaurantEstimation(3.5, 12), 1, 'Pub', 'assets/alfa.png'),
-    Restaurant('Derby pub 4', RestaurantEstimation(3.5, 12), 1, 'Pub', 'assets/alfa.png'),
+    Restaurant('Derby pub', RestaurantEstimation(3, 12), 2, 'Pub', 'assets/derby.png'),
+    Restaurant('Clock block', RestaurantEstimation(5, 54), 3, 'Pub', 'assets/clockblock.png'),
+    Restaurant('Veg life', RestaurantEstimation(4, 8), 2, 'Pub', 'assets/veglife.png'),
+    Restaurant('Alfa', RestaurantEstimation(1, 325), 1, 'Pub', 'assets/alfa.png'),
+    Restaurant('Classic restaurant & Pub', RestaurantEstimation(3, 4), 2, 'Pub', 'assets/alfa.png'),
   ];
   return await Future.value(restaurants).timeout(const Duration(seconds: 1));
 }
@@ -11,7 +12,7 @@ Future getRestaurants() async {
 class Restaurant {
   String title;
   RestaurantEstimation estimation;
-  num priceCategory;
+  int priceCategory;
   String type;
   String imgUrl;
 
@@ -19,8 +20,8 @@ class Restaurant {
 }
 
 class RestaurantEstimation {
-  num value;
-  num votes;
+  int value;
+  int votes;
 
   RestaurantEstimation(this.value, this.votes);
 }
