@@ -1,8 +1,9 @@
+import 'package:erni_eats_fe/pages/widgets/github-links.dart';
 import 'package:erni_eats_fe/service/mocked-be-data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Widget homeSidebar() {
+Widget homeSidebar(BuildContext context) {
   return Drawer(
     child: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -75,10 +76,8 @@ Widget homeSidebar() {
                 ),
                 ListTile(
                   leading: Icon(Icons.code, color: Colors.black54),
-                  title: Text('Link na github'),
-                  onTap: () {
-                    // todo show FE and BE github links to be opened in external browser
-                  },
+                  title: Text('Link na GitHub'),
+                  onTap: () => _navigateToGitHubLinksPage(context),
                 ),
               ],
               scrollDirection: Axis.vertical,
@@ -86,5 +85,12 @@ Widget homeSidebar() {
             ),
           ],
         )),
+  );
+}
+
+void _navigateToGitHubLinksPage(context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => GithubLinksRoute()),
   );
 }

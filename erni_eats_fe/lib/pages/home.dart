@@ -18,7 +18,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      drawer: homeSidebar(),
+      drawer: homeSidebar(context),
       body: homeBody(),
     );
   }
