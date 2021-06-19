@@ -39,7 +39,7 @@ Widget homeSidebar() {
                       return CheckboxListTile(
                         title: Text(restaurant.title),
                         value: restaurant.displayed,
-                        activeColor: Colors.grey,
+                        activeColor: Colors.black54,
                         onChanged: (bool? value) {
                           // todo enable restaurants display toggle
                           // todo store locally restaurants display
@@ -60,21 +60,21 @@ Widget homeSidebar() {
             ListView(
               children: <Widget>[
                 ListTile(
-                  leading: Icon(Icons.favorite),
+                  leading: Icon(Icons.favorite, color: Colors.black54),
                   title: Text('Kúpte nám kávu'),
                   onTap: () {
                     // todo add donate feature
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.message),
+                  leading: Icon(Icons.message, color: Colors.black54),
                   title: Text('Spätná väzba'),
                   onTap: () {
                     // todo feedback page
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.code),
+                  leading: Icon(Icons.code, color: Colors.black54),
                   title: Text('Link na github'),
                   onTap: () {
                     // todo show FE and BE github links to be opened in external browser

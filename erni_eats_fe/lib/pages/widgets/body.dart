@@ -32,8 +32,14 @@ Widget homeBody() {
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                          '${'*' * restaurant.estimation.value} (${restaurant.estimation.votes})'),
+                      Row(
+                        children: [
+                          Row(
+                              children:
+                                  _starsForRating(restaurant.estimation.value)),
+                          Text('(${restaurant.estimation.votes})'),
+                        ],
+                      ),
                       Text(
                           '${'€' * restaurant.priceCategory} • ${restaurant.type}'),
                     ],
@@ -45,4 +51,16 @@ Widget homeBody() {
       return Center();
     },
   );
+}
+
+List<Icon> _starsForRating(_rating) {
+  List<Icon> stars = [];
+  for (int i = 0; i < _rating; i++) {
+    stars.add(Icon(
+      Icons.star,
+      size: 20.0,
+      color: Colors.black54,
+    ));
+  }
+  return stars;
 }
