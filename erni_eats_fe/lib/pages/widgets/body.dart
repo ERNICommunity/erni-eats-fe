@@ -1,9 +1,10 @@
+import 'package:erni_eats_fe/models/models.dart';
 import 'package:erni_eats_fe/service/mocked-be-data.dart';
 import 'package:flutter/material.dart';
 
 Widget homeBody() {
   return FutureBuilder(
-    future: getRestaurants(),
+    future: getRestaurantsData(),
     initialData: [],
     builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
       if (snapshot.connectionState == ConnectionState.done &&

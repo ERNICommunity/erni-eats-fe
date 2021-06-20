@@ -1,3 +1,4 @@
+import 'package:erni_eats_fe/models/models.dart';
 import 'package:erni_eats_fe/pages/widgets/github-links.dart';
 import 'package:erni_eats_fe/service/mocked-be-data.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,7 +27,7 @@ Widget homeSidebar(BuildContext context) {
               title: Text('Zobrazené reštaurácie'),
             ),
             FutureBuilder(
-              future: getRestaurants(),
+              future: getRestaurantsData(),
               initialData: [],
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                 if (snapshot.connectionState == ConnectionState.done &&
