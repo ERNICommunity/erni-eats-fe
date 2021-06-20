@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:erni_eats_fe/pages/home.dart';
+import 'package:erni_eats_fe/pages/home/home.dart';
 import 'package:flutter/material.dart';
 
 void main() {

@@ -1,5 +1,5 @@
 import 'package:erni_eats_fe/models/models.dart';
-import 'package:erni_eats_fe/pages/widgets/github-links.dart';
+import 'package:erni_eats_fe/pages/github-links/github-links.dart';
 import 'package:erni_eats_fe/service/mocked-be-data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +30,8 @@ Widget homeSidebar(BuildContext context) {
               future: getRestaurantsData(),
               initialData: [],
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                // todo implement if-case for ConnectionState.waiting (show spinner)
+                // todo implement if-case for ConnectionState.none (show message)
                 if (snapshot.connectionState == ConnectionState.done &&
                     snapshot.data.length > 0) {
                   return ListView.builder(

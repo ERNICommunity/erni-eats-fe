@@ -1,5 +1,5 @@
-import 'package:erni_eats_fe/pages/widgets/body.dart';
-import 'package:erni_eats_fe/pages/widgets/sidebar.dart';
+import 'package:erni_eats_fe/pages/home/widgets/body.dart';
+import 'package:erni_eats_fe/pages/home/widgets/sidebar.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {

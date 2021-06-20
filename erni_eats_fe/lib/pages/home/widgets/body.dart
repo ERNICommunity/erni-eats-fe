@@ -7,6 +7,8 @@ Widget homeBody() {
     future: getRestaurantsData(),
     initialData: [],
     builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+      // todo implement if-case for ConnectionState.waiting (show spinner)
+      // todo implement if-case for ConnectionState.none (show message)
       if (snapshot.connectionState == ConnectionState.done &&
           snapshot.data.length > 0) {
         return ListView.builder(
@@ -16,6 +18,7 @@ Widget homeBody() {
               if (!restaurant.displayed) {
                 return Column();
               }
+              // todo implement card with extended content
               return Card(
                 child: ListTile(
                   trailing: Container(
