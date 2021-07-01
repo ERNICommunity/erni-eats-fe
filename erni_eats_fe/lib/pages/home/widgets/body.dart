@@ -1,51 +1,61 @@
 import 'package:erni_eats_fe/models/models.dart';
-import 'package:erni_eats_fe/service/mocked-be-data.dart';
+import 'package:erni_eats_fe/service/eat11-be.dart';
 import 'package:flutter/material.dart';
 
 Widget homeBody() {
   return FutureBuilder(
-    future: getRestaurantsData(),
+    future: getRestaurants(),
     initialData: [],
     builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-      // todo implement if-case for ConnectionState.waiting (show spinner)
-      // todo implement if-case for ConnectionState.none (show message)
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        // todo implement if-case for ConnectionState.waiting (show spinner)
+        return Column();
+      }
+      if (snapshot.connectionState == ConnectionState.done &&
+          snapshot.data == null) {
+        // todo implement if-case for ConnectionState.none (show message)
+        return Column();
+      }
       if (snapshot.connectionState == ConnectionState.done &&
           snapshot.data.length > 0) {
         return ListView.builder(
             itemCount: snapshot.data.length,
             itemBuilder: (context, index) {
-              Restaurant restaurant = snapshot.data[index];
-              if (!restaurant.displayed) {
-                return Column();
-              }
+              Establishment establishment = snapshot.data[index];
+              // todo displayed toggle
+              // if (!establishment.displayed) {
+              //   return Column();
+              // }
               // todo implement card with extended content
               return Card(
                 child: ListTile(
-                  trailing: Container(
-                    height: 80,
-                    width: 80,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage(restaurant.imgUrl),
-                      ),
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                  title: Text(restaurant.title),
+                  // todo show image
+                  // trailing: Container(
+                  //   height: 80,
+                  //   width: 80,
+                  //   decoration: BoxDecoration(
+                  //     image: DecorationImage(
+                  //       fit: BoxFit.fill,
+                  //       image: AssetImage(establishment.imgUrl),
+                  //     ),
+                  //     shape: BoxShape.circle,
+                  //   ),
+                  // ),
+                  title: Text(establishment.name),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      establishment.description != null
+                          ? Text('${establishment.description}')
+                          : Column(),
                       Row(
                         children: [
-                          Row(
-                              children:
-                                  _starsForRating(restaurant.estimation.value)),
-                          Text('(${restaurant.estimation.votes})'),
+                          Row(children: _starsForRating(establishment.rating)),
+                          Text('(${establishment.userRatingsTotal})'),
                         ],
                       ),
                       Text(
-                          '${'€' * restaurant.priceCategory} • ${restaurant.type}'),
+                          '${_getPriceLevel(establishment.priceLevel)} • ${_getEstablishmentType(establishment.type)}'),
                     ],
                   ),
                 ),
@@ -67,4 +77,29 @@ List<Icon> _starsForRating(_rating) {
     ));
   }
   return stars;
+}
+
+String _getPriceLevel(_priceLevel) {
+  var multiply;
+  switch (_priceLevel) {
+    case EstablishmentPriceLevel.Inexpensive:
+      multiply = 2;
+      break;
+    case EstablishmentPriceLevel.Moderate:
+      multiply = 3;
+      break;
+    default:
+      multiply = 0;
+  }
+  return '${'€' * multiply}';
+}
+
+String _getEstablishmentType(_type) {
+  if (_type == EstablishmentType.Restaurant) {
+    return 'Reštaurácia';
+  }
+  if (_type == EstablishmentType.Pub) {
+    return 'Krčma';
+  }
+  return 'Neznáme';
 }
