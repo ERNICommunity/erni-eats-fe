@@ -83,10 +83,10 @@ String _getPriceLevel(_priceLevel) {
   var multiply;
   switch (_priceLevel) {
     case EstablishmentPriceLevel.Inexpensive:
-      multiply = 2;
+      multiply = 1;
       break;
     case EstablishmentPriceLevel.Moderate:
-      multiply = 3;
+      multiply = 2;
       break;
     default:
       multiply = 0;
@@ -99,7 +99,7 @@ String _getEstablishmentType(_type) {
     return 'Reštaurácia';
   }
   if (_type == EstablishmentType.Pub) {
-    return 'Krčma';
+    return 'Pohostinstvo';
   }
   return 'Neznáme';
 }
