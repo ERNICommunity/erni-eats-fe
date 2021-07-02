@@ -1,6 +1,6 @@
 import 'package:erni_eats_fe/models/models.dart';
 import 'package:erni_eats_fe/pages/github-links/github-links.dart';
-import 'package:erni_eats_fe/service/mocked-be-data.dart';
+import 'package:erni_eats_fe/service/eat11-be.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +27,7 @@ Widget homeSidebar(BuildContext context) {
               title: Text('Zobrazené reštaurácie'),
             ),
             FutureBuilder(
-              future: getRestaurantsData(),
+              future: getRestaurants(),
               initialData: [],
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                 // todo implement if-case for ConnectionState.waiting (show spinner)
@@ -39,10 +39,12 @@ Widget homeSidebar(BuildContext context) {
                     // todo show restaurants in order
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, index) {
-                      Restaurant restaurant = snapshot.data[index];
+                      Establishment establishment = snapshot.data[index];
                       return CheckboxListTile(
-                        title: Text(restaurant.title),
-                        value: restaurant.displayed,
+                        title: Text(establishment.name),
+                        value: true,
+                        // todo enable toggle
+                        // value: establishment.displayed,
                         activeColor: Colors.black54,
                         onChanged: (bool? value) {
                           // todo enable restaurants display toggle
