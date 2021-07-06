@@ -1,4 +1,5 @@
 import 'package:erni_eats_fe/models/models.dart';
+import 'package:erni_eats_fe/pages/home/widgets/daily-menu.dart';
 import 'package:erni_eats_fe/service/eat11-be.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +29,8 @@ Widget homeBody() {
               // }
               // todo implement card with extended content
               return Card(
-                child: ListTile(
+                  child: ExpansionTile(
+                title: ListTile(
                   // todo show image
                   // trailing: Container(
                   //   height: 80,
@@ -59,7 +61,22 @@ Widget homeBody() {
                     ],
                   ),
                 ),
-              );
+                children: [
+                  dailyMenu(context, establishment),
+                  SizedBox(
+                    width: double.infinity,
+                    child: TextButton(
+                      child: Text('Zistiť viac'),
+                      onPressed: () => _establishmentPage(establishment),
+                      style: TextButton.styleFrom(
+                          padding: EdgeInsets.symmetric(vertical: 16),
+                          textStyle: TextStyle(fontSize: 18)),
+                    ),
+                  )
+                ],
+                expandedAlignment: Alignment.topLeft,
+                textColor: Colors.black,
+              ));
             });
       }
       return Center();
@@ -102,4 +119,8 @@ String _getEstablishmentType(_type) {
     return 'Pohostinstvo';
   }
   return 'Neznáme';
+}
+
+void _establishmentPage(Establishment establishment) {
+  print('_establishmentPage');
 }

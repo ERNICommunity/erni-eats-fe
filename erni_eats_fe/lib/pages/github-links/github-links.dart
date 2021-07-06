@@ -1,5 +1,5 @@
+import 'package:erni_eats_fe/utils/launch-url.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class GithubLinksRoute extends StatelessWidget {
 
@@ -22,23 +22,15 @@ class GithubLinksRoute extends StatelessWidget {
             ),
             TextButton(
               child: const Text('Frontend aplikácia'),
-              onPressed: () => _launchURL(_frontendUrl),
+              onPressed: () => launchURL(_frontendUrl),
             ),
             TextButton(
               child: const Text('Backend aplikácia'),
-              onPressed: () => _launchURL(_backendUrl),
+              onPressed: () => launchURL(_backendUrl),
             ),
           ],
         ),
       ),
     );
-  }
-}
-
-_launchURL(url) async {
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
   }
 }

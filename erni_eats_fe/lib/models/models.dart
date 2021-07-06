@@ -50,3 +50,28 @@ class EstablishmentPriceLevel {
   static const Moderate = "MODERATE";
   static const Inexpensive = "INEXPENSIVE";
 }
+
+class DailyMenu {
+  String name;
+  num? price;
+  String type;
+
+  DailyMenu({
+    required this.name,
+    this.price,
+    required this.type,
+  });
+
+  factory DailyMenu.fromJson(Map json) {
+    return DailyMenu(
+      name: json['name'],
+      price: json['price'],
+      type: json['type'],
+    );
+  }
+}
+
+class DailyMenuItemType {
+  static const Soup = 'SOUP';
+  static const MainDish = 'MAIN_DISH';
+}

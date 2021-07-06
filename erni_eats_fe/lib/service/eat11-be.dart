@@ -12,7 +12,8 @@ Future<List<Establishment>> getRestaurants() async {
 
   if (response.statusCode == 200) {
     Iterable jsonResponse = json.decode(utf8.decode(response.bodyBytes));
-    return List<Establishment>.from(jsonResponse.map((model) => Establishment.fromJson(model) ));
+    return List<Establishment>.from(
+        jsonResponse.map((model) => Establishment.fromJson(model)));
   } else {
     throw Exception('Failed to load restaurants');
   }
@@ -20,7 +21,24 @@ Future<List<Establishment>> getRestaurants() async {
 
 // GET localhost:8080/api/v1/establishments/clock-block/daily-menu?date=2021-01-05
 // vrati zoznam poloziek menu pre konkretny den
-// todo use
+Future<List<DailyMenu>> getDailyMenu(String establishmentId) async {
+  DateTime today = new DateTime.now();
+  String queryDate = '${today.year.toString()}'
+      '-${today.month.toString().padLeft(2, '0')}'
+      '-${today.day.toString().padLeft(2, '0')}';
+
+  String query = '$baseUrl/$establishmentId/daily-menu?$queryDate';
+  final response = await http.get(Uri.parse(query));
+
+  if (response.statusCode == 200) {
+    Iterable jsonResponse = json.decode(utf8.decode(response.bodyBytes));
+    List<DailyMenu> dailyMenu = List<DailyMenu>.from(
+        jsonResponse.map((model) => DailyMenu.fromJson(model)));
+    return dailyMenu;
+  } else {
+    throw Exception('Failed to load daily menu for query: $query');
+  }
+}
 
 // GET localhost:8080/api/v1/establishments/clock-block/daily-menu
 // vrati zoznam poloziek menu pre TODAY
