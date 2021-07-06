@@ -77,8 +77,8 @@ Widget _getDailyMenuWidget(
   return Column(
     children: [
       Padding(
-        child: Text(title, style: Theme.of(context).textTheme.headline6),
-        padding: EdgeInsets.only(bottom: 16),
+        child: Text(title, style: Theme.of(context).textTheme.subtitle1),
+        padding: EdgeInsets.only(bottom: 8),
       ),
       dailyMenuItems.isEmpty
           ? _getEmptyMenuWidget()
@@ -89,7 +89,7 @@ Widget _getDailyMenuWidget(
 }
 
 Widget _getEmptyMenuWidget() {
-  return Text('Nie');
+  return Text('Nie sú stravy z danej kategórie.');
 }
 
 Widget _getDailyMenuItemsWidget(List<DailyMenu> dailyMenuItems) {
@@ -118,13 +118,12 @@ Widget _getErrorWidget(String establishmentUrl) {
     padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
     child: Column(
       children: [
-        Text('Nepodarilo sa nájsť menu'),
+        Text('Nepodarilo sa nájsť menu.'),
         TextButton(
           child: const Text('Prejsť na stránku podniku'),
           onPressed: () => launchURL(establishmentUrl),
         ),
       ],
-      crossAxisAlignment: CrossAxisAlignment.start,
     ),
   );
 }

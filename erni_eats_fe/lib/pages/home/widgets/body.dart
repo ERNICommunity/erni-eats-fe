@@ -70,7 +70,7 @@ Widget homeBody() {
                       onPressed: () => _establishmentPage(establishment),
                       style: TextButton.styleFrom(
                           padding: EdgeInsets.symmetric(vertical: 16),
-                          textStyle: TextStyle(fontSize: 18)),
+                          textStyle: TextStyle(fontSize: 16)),
                     ),
                   )
                 ],
