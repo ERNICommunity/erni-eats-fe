@@ -4,67 +4,156 @@ import 'package:erni_eats_fe/utils/launch-url.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Widget dailyMenu(BuildContext context, Establishment establishment) {
-  return FutureBuilder(
-      future: _getDailyMenuRepresentationMap(establishment.id),
-      initialData: null,
+class DailyMenuWidget extends StatefulWidget {
+  final BuildContext context;
+  final Establishment establishment;
+
+  DailyMenuWidget(this.context, this.establishment);
+
+  @override
+  _DailyMenuWidgetState createState() =>
+      _DailyMenuWidgetState(this.context, this.establishment);
+}
+
+class _DailyMenuWidgetState extends State<DailyMenuWidget> {
+  final BuildContext context;
+  final Establishment establishment;
+
+  _DailyMenuWidgetState(this.context, this.establishment);
+
+  DateTime selectedDate = new DateTime.now();
+  String selectedDateRepresentation = '';
+  Future<Map<String, List<DailyMenu>>> dailyMenuRepresentationMap =
+      Future.value(new Map());
+
+  @override
+  initState() {
+    super.initState();
+    selectedDate = new DateTime.now();
+    selectedDateRepresentation = '${selectedDate.year.toString()}'
+        '-${selectedDate.month.toString().padLeft(2, '0')}'
+        '-${selectedDate.day.toString().padLeft(2, '0')}';
+    dailyMenuRepresentationMap = _getDailyMenuRepresentationMap(
+        establishment.id, selectedDateRepresentation);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ReRunnableFutureBuilder(establishment, selectedDateRepresentation, dailyMenuRepresentationMap, onRerun: _runFeature);
+  }
+
+  void _runFeature() {
+    setPreviousMenuDate();
+    updateDailyMenu();
+  }
+
+  void setPreviousMenuDate() {
+    setState(() {
+      selectedDate = selectedDate.subtract(Duration(days: 1));
+      selectedDateRepresentation = '${selectedDate.year.toString()}'
+          '-${selectedDate.month.toString().padLeft(2, '0')}'
+          '-${selectedDate.day.toString().padLeft(2, '0')}';
+    });
+  }
+
+  void setNextMenuDate() {
+    setState(() {
+      selectedDate = selectedDate.add(Duration(days: 1));
+      selectedDateRepresentation = '${selectedDate.year.toString()}'
+          '-${selectedDate.month.toString().padLeft(2, '0')}'
+          '-${selectedDate.day.toString().padLeft(2, '0')}';
+    });
+  }
+
+  void updateDailyMenu() {
+    Future.delayed(const Duration(seconds: 3), () {
+      setState(() {
+        dailyMenuRepresentationMap = _getDailyMenuRepresentationMap(
+            establishment.id, selectedDateRepresentation);
+      });
+    });
+  }
+}
+
+class ReRunnableFutureBuilder extends StatelessWidget {
+  final Establishment establishment;
+  final String selectedDateRepresentation;
+  final Future dailyMenuRepresentationMap;
+  final Function onRerun;
+
+  ReRunnableFutureBuilder(this.establishment, this.selectedDateRepresentation, this.dailyMenuRepresentationMap, { required this.onRerun });
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: dailyMenuRepresentationMap,
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
+        if (snapshot.connectionState != ConnectionState.done) {
           return CircularProgressIndicator();
         }
-        if (snapshot.connectionState == ConnectionState.done &&
-            snapshot.hasError) {
+        if (snapshot.hasError) {
           return _getErrorWidget(establishment.websiteUrl);
         }
-        if (snapshot.connectionState == ConnectionState.done &&
-            snapshot.data == null) {
+        List<DailyMenu> soups = snapshot.data[DailyMenuItemType.Soup];
+        List<DailyMenu> mainDish =
+        snapshot.data[DailyMenuItemType.MainDish];
+        if (soups.isEmpty && mainDish.isEmpty) {
           return _getErrorWidget(establishment.websiteUrl);
         }
-        if (snapshot.connectionState == ConnectionState.done) {
-          List<DailyMenu> soups = snapshot.data[DailyMenuItemType.Soup];
-          List<DailyMenu> mainDish = snapshot.data[DailyMenuItemType.MainDish];
-          if (soups.isEmpty && mainDish.isEmpty) {
-            return _getErrorWidget(establishment.websiteUrl);
-          }
-          return Padding(
-            child: ListView(
-              children: [
-                _getDailyMenuWidget(context, soups, 'Polievky'),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 8),
-                  child: Divider(),
-                ),
-                _getDailyMenuWidget(context, mainDish, 'Hlavné jedla'),
-                // todo switch between days
-                // todo handle weekends
-                // todo handle holidays
-              ],
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-            ),
-            padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-          );
-        }
-        return Center();
-      });
+        return Padding(
+          child: ListView(
+            children: [
+              _getDailyMenuWidget(context, soups, 'Polievky'),
+              Padding(
+                padding: EdgeInsets.only(bottom: 8),
+                child: Divider(),
+              ),
+              _getDailyMenuWidget(context, mainDish, 'Hlavné jedla'),
+              // todo handle weekends
+              // todo handle holidays
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.chevron_left),
+                    onPressed: () => onRerun(),
+                  ),
+                  Text(this.selectedDateRepresentation),
+                  IconButton(
+                    icon: const Icon(Icons.chevron_right),
+                    onPressed: () => onRerun(),
+                  ),
+                ],
+              ),
+            ],
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+        );
+      },
+    );
+  }
 }
 
 Future<Map<String, List<DailyMenu>>> _getDailyMenuRepresentationMap(
-    String establishmentId) async {
+    String establishmentId, String date) async {
   try {
     Map<String, List<DailyMenu>> representation = {
       DailyMenuItemType.Soup: [],
       DailyMenuItemType.MainDish: [],
     };
-    List<DailyMenu> dailyMenu = await getDailyMenu(establishmentId);
-    dailyMenu.forEach((element) {
-      if (element.type == DailyMenuItemType.Soup) {
-        representation[DailyMenuItemType.Soup]!.add(element);
-      }
-      if (element.type == DailyMenuItemType.MainDish) {
-        representation[DailyMenuItemType.MainDish]!.add(element);
-      }
-    });
+    List<DailyMenu> dailyMenu = await getDailyMenuByDate(establishmentId, date);
+    dailyMenu.forEach(
+      (element) {
+        if (element.type == DailyMenuItemType.Soup) {
+          representation[DailyMenuItemType.Soup]!.add(element);
+        }
+        if (element.type == DailyMenuItemType.MainDish) {
+          representation[DailyMenuItemType.MainDish]!.add(element);
+        }
+      },
+    );
     return representation;
   } on Exception {
     throw Exception;
@@ -97,16 +186,20 @@ Widget _getDailyMenuItemsWidget(List<DailyMenu> dailyMenuItems) {
     itemCount: dailyMenuItems.length,
     itemBuilder: (context, index) {
       return Padding(
-          padding: EdgeInsets.only(bottom: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(dailyMenuItems[index].name),
-              dailyMenuItems[index].price != null
-                  ? Text(dailyMenuItems[index].price.toString())
-                  : Text('—'),
-            ],
-          ));
+        padding: EdgeInsets.only(bottom: 8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              child: Text(dailyMenuItems[index].name),
+            ),
+            dailyMenuItems[index].price != null
+                ? Text(dailyMenuItems[index].price.toString())
+                : Text('—'),
+          ],
+        ),
+      );
     },
     scrollDirection: Axis.vertical,
     shrinkWrap: true,

@@ -7,7 +7,7 @@ String baseUrl = 'http://localhost:8080/api/v1/establishments';
 
 // GET localhost:8080/api/v1/establishments
 // vrati zoznam configuracii vsetkych restauracii o ktorych BE vie
-Future<List<Establishment>> getRestaurants() async {
+Future<List<Establishment>> getAllEstablishments() async {
   final response = await http.get(Uri.parse(baseUrl));
 
   if (response.statusCode == 200) {
@@ -21,13 +21,8 @@ Future<List<Establishment>> getRestaurants() async {
 
 // GET localhost:8080/api/v1/establishments/clock-block/daily-menu?date=2021-01-05
 // vrati zoznam poloziek menu pre konkretny den
-Future<List<DailyMenu>> getDailyMenu(String establishmentId) async {
-  DateTime today = new DateTime.now();
-  String queryDate = '${today.year.toString()}'
-      '-${today.month.toString().padLeft(2, '0')}'
-      '-${today.day.toString().padLeft(2, '0')}';
-
-  String query = '$baseUrl/$establishmentId/daily-menu?$queryDate';
+Future<List<DailyMenu>> getDailyMenuByDate(String establishmentId, String date) async {
+  String query = '$baseUrl/$establishmentId/daily-menu?$date';
   final response = await http.get(Uri.parse(query));
 
   if (response.statusCode == 200) {

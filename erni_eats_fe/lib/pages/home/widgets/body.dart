@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 Widget homeBody() {
   return FutureBuilder(
-    future: getRestaurants(),
+    future: getAllEstablishments(),
     initialData: [],
     builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {
@@ -20,16 +20,16 @@ Widget homeBody() {
       if (snapshot.connectionState == ConnectionState.done &&
           snapshot.data.length > 0) {
         return ListView.builder(
-            itemCount: snapshot.data.length,
-            itemBuilder: (context, index) {
-              Establishment establishment = snapshot.data[index];
-              // todo displayed toggle
-              // if (!establishment.displayed) {
-              //   return Column();
-              // }
-              // todo implement card with extended content
-              return Card(
-                  child: ExpansionTile(
+          itemCount: snapshot.data.length,
+          itemBuilder: (context, index) {
+            Establishment establishment = snapshot.data[index];
+            // todo displayed toggle
+            // if (!establishment.displayed) {
+            //   return Column();
+            // }
+            // todo implement card with extended content
+            return Card(
+              child: ExpansionTile(
                 title: ListTile(
                   // todo show image
                   // trailing: Container(
@@ -62,7 +62,7 @@ Widget homeBody() {
                   ),
                 ),
                 children: [
-                  dailyMenu(context, establishment),
+                  DailyMenuWidget(context, establishment),
                   SizedBox(
                     width: double.infinity,
                     child: TextButton(
@@ -72,12 +72,16 @@ Widget homeBody() {
                           padding: EdgeInsets.symmetric(vertical: 16),
                           textStyle: TextStyle(fontSize: 16)),
                     ),
-                  )
+                  ),
                 ],
                 expandedAlignment: Alignment.topLeft,
                 textColor: Colors.black,
-              ));
-            });
+              ),
+            );
+          },
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+        );
       }
       return Center();
     },
@@ -122,5 +126,6 @@ String _getEstablishmentType(_type) {
 }
 
 void _establishmentPage(Establishment establishment) {
+  // todo redirect to establishment detail page
   print('_establishmentPage');
 }

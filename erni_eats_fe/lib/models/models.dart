@@ -39,6 +39,11 @@ class Establishment {
       priceLevel: json['priceLevel'],
     );
   }
+
+  @override
+  String toString() {
+    return 'Establishment{id: $id, restaurantId: $restaurantId, name: $name, alias: $alias, description: $description, type: $type, websiteUrl: $websiteUrl, dailyMenuUrl: $dailyMenuUrl, rating: $rating, userRatingsTotal: $userRatingsTotal, priceLevel: $priceLevel}';
+  }
 }
 
 class EstablishmentType {
@@ -68,6 +73,11 @@ class DailyMenu {
       price: json['price'],
       type: json['type'],
     );
+  }
+
+  @override
+  String toString() {
+    return 'DailyMenu{name: $name, price: $price, type: $type}';
   }
 }
 
