@@ -39,6 +39,11 @@ class Establishment {
       priceLevel: json['priceLevel'],
     );
   }
+
+  @override
+  String toString() {
+    return 'Establishment{id: $id, restaurantId: $restaurantId, name: $name, alias: $alias, description: $description, type: $type, websiteUrl: $websiteUrl, dailyMenuUrl: $dailyMenuUrl, rating: $rating, userRatingsTotal: $userRatingsTotal, priceLevel: $priceLevel}';
+  }
 }
 
 class EstablishmentType {
@@ -49,4 +54,34 @@ class EstablishmentType {
 class EstablishmentPriceLevel {
   static const Moderate = "MODERATE";
   static const Inexpensive = "INEXPENSIVE";
+}
+
+class DailyMenu {
+  String name;
+  num? price;
+  String type;
+
+  DailyMenu({
+    required this.name,
+    this.price,
+    required this.type,
+  });
+
+  factory DailyMenu.fromJson(Map json) {
+    return DailyMenu(
+      name: json['name'],
+      price: json['price'],
+      type: json['type'],
+    );
+  }
+
+  @override
+  String toString() {
+    return 'DailyMenu{name: $name, price: $price, type: $type}';
+  }
+}
+
+class DailyMenuItemType {
+  static const Soup = 'SOUP';
+  static const MainDish = 'MAIN_DISH';
 }
