@@ -96,12 +96,12 @@ class ReRunnableFutureBuilder extends StatelessWidget {
           return CircularProgressIndicator();
         }
         if (snapshot.hasError) {
-          return _getErrorWidget(establishment.websiteUrl);
+          return _getNotFoundWidget(establishment);
         }
         List<DailyMenu> soups = snapshot.data[DailyMenuItemType.Soup];
         List<DailyMenu> mainDish = snapshot.data[DailyMenuItemType.MainDish];
         if (soups.isEmpty && mainDish.isEmpty) {
-          return _getErrorWidget(establishment.websiteUrl);
+          return _getNotFoundWidget(establishment);
         }
         return Padding(
           child: ListView(
@@ -184,15 +184,22 @@ Widget _getDailyMenuItemsWidget(List<DailyMenu> dailyMenuItems) {
   );
 }
 
-Widget _getErrorWidget(String establishmentUrl) {
+Widget _getNotFoundWidget(Establishment establishment) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
     child: Column(
       children: [
-        Text('Nepodarilo sa nájsť menu.'),
+        Padding(
+          padding: EdgeInsets.only(bottom: 8),
+          child: Text('Nepodarilo sa nájsť menu.'),
+        ),
         TextButton(
-          child: const Text('Prejsť na stránku podniku'),
-          onPressed: () => launchURL(establishmentUrl),
+          child: const Text('Denné menu na stránke podniku'),
+          onPressed: () => launchURL(establishment.dailyMenuUrl),
+        ),
+        TextButton(
+          child: const Text('Stránka podniku'),
+          onPressed: () => launchURL(establishment.websiteUrl),
         ),
       ],
     ),
