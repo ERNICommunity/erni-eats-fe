@@ -1,3 +1,15 @@
+const String APP_TITLE = 'Eat11';
+
+class SharedPreferencesKey {
+  static const DisplayedEstablishments = 'displayed_establishments';
+}
+
+class HomePassedParam {
+  List<String> displayedEstablishments;
+
+  HomePassedParam(this.displayedEstablishments);
+}
+
 class Establishment {
   final String id;
   final String restaurantId;

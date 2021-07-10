@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:erni_eats_fe/models/models.dart';
+import 'package:erni_eats_fe/data/data.dart';
 import 'package:http/http.dart' as http;
 
 String baseUrl = 'http://localhost:8080/api/v1/establishments';

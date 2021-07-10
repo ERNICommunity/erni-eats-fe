@@ -1,5 +1,5 @@
-import 'package:erni_eats_fe/models/models.dart';
-import 'package:erni_eats_fe/service/eat11-be.dart';
+import 'package:erni_eats_fe/data/data.dart';
+import 'package:erni_eats_fe/service/util-service.dart';
 import 'package:erni_eats_fe/utils/launch-url.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,13 +33,15 @@ class _DailyMenuWidgetState extends State<DailyMenuWidget> {
     selectedDateRepresentation = '${selectedDate.year.toString()}'
         '-${selectedDate.month.toString().padLeft(2, '0')}'
         '-${selectedDate.day.toString().padLeft(2, '0')}';
-    dailyMenuRepresentationMap = _getDailyMenuRepresentationMap(
+    dailyMenuRepresentationMap = getDailyMenuRepresentationMap(
         establishment.id, selectedDateRepresentation);
   }
 
   @override
   Widget build(BuildContext context) {
-    return ReRunnableFutureBuilder(establishment, selectedDateRepresentation, dailyMenuRepresentationMap, onRerun: _runFeature);
+    return ReRunnableFutureBuilder(
+        establishment, selectedDateRepresentation, dailyMenuRepresentationMap,
+        onRerun: _runFeature);
   }
 
   void _runFeature() {
@@ -68,7 +70,7 @@ class _DailyMenuWidgetState extends State<DailyMenuWidget> {
   void updateDailyMenu() {
     Future.delayed(const Duration(seconds: 3), () {
       setState(() {
-        dailyMenuRepresentationMap = _getDailyMenuRepresentationMap(
+        dailyMenuRepresentationMap = getDailyMenuRepresentationMap(
             establishment.id, selectedDateRepresentation);
       });
     });
@@ -81,7 +83,9 @@ class ReRunnableFutureBuilder extends StatelessWidget {
   final Future dailyMenuRepresentationMap;
   final Function onRerun;
 
-  ReRunnableFutureBuilder(this.establishment, this.selectedDateRepresentation, this.dailyMenuRepresentationMap, { required this.onRerun });
+  ReRunnableFutureBuilder(this.establishment, this.selectedDateRepresentation,
+      this.dailyMenuRepresentationMap,
+      {required this.onRerun});
 
   @override
   Widget build(BuildContext context) {
@@ -95,8 +99,7 @@ class ReRunnableFutureBuilder extends StatelessWidget {
           return _getErrorWidget(establishment.websiteUrl);
         }
         List<DailyMenu> soups = snapshot.data[DailyMenuItemType.Soup];
-        List<DailyMenu> mainDish =
-        snapshot.data[DailyMenuItemType.MainDish];
+        List<DailyMenu> mainDish = snapshot.data[DailyMenuItemType.MainDish];
         if (soups.isEmpty && mainDish.isEmpty) {
           return _getErrorWidget(establishment.websiteUrl);
         }
@@ -133,31 +136,6 @@ class ReRunnableFutureBuilder extends StatelessWidget {
         );
       },
     );
-  }
-}
-
-Future<Map<String, List<DailyMenu>>> _getDailyMenuRepresentationMap(
-    String establishmentId, String date) async {
-  try {
-    Map<String, List<DailyMenu>> representation = {
-      DailyMenuItemType.Soup: [],
-      DailyMenuItemType.MainDish: [],
-    };
-    List<DailyMenu> dailyMenu = await getDailyMenuByDate(establishmentId, date);
-    dailyMenu.forEach(
-      (element) {
-        if (element.type == DailyMenuItemType.Soup) {
-          representation[DailyMenuItemType.Soup]!.add(element);
-        }
-        if (element.type == DailyMenuItemType.MainDish) {
-          representation[DailyMenuItemType.MainDish]!.add(element);
-        }
-      },
-    );
-    return representation;
-  } on Exception {
-    throw Exception;
-    // todo custom exceptions
   }
 }
 
