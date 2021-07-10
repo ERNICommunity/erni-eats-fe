@@ -93,7 +93,10 @@ class ReRunnableFutureBuilder extends StatelessWidget {
       future: dailyMenuRepresentationMap,
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
-          return CircularProgressIndicator();
+          return Padding(
+            padding: EdgeInsets.symmetric(vertical: 24),
+            child: CircularProgressIndicator(),
+          );
         }
         if (snapshot.hasError) {
           return _getNotFoundWidget(establishment);
@@ -186,11 +189,11 @@ Widget _getDailyMenuItemsWidget(List<DailyMenu> dailyMenuItems) {
 
 Widget _getNotFoundWidget(Establishment establishment) {
   return Padding(
-    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+    padding: EdgeInsets.symmetric(vertical: 24),
     child: Column(
       children: [
         Padding(
-          padding: EdgeInsets.only(bottom: 8),
+          padding: EdgeInsets.only(bottom: 16),
           child: Text('Nepodarilo sa nájsť menu.'),
         ),
         TextButton(
