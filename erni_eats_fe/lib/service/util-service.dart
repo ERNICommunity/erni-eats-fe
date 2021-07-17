@@ -8,7 +8,8 @@ Future<Map<String, List<DailyMenu>>> getDailyMenuRepresentationMap(
       DailyMenuItemType.Soup: [],
       DailyMenuItemType.MainDish: [],
     };
-    List<DailyMenu> dailyMenu = await getDailyMenuByEstablishmentByDate(establishmentId, date);
+    List<DailyMenu> dailyMenu =
+        await getDailyMenuByEstablishmentByDate(establishmentId, date);
     dailyMenu.forEach(
       (element) {
         if (element.type == DailyMenuItemType.Soup) {
@@ -27,7 +28,11 @@ Future<Map<String, List<DailyMenu>>> getDailyMenuRepresentationMap(
 }
 
 Future<List<String>> getEstablishmentIds() async {
-  List<Establishment> establishments = await getAllEstablishments();
-  return List<String>.from(
-      establishments.map((establishment) => establishment.id));
+  try {
+    List<Establishment> establishments = await getAllEstablishments();
+    return List<String>.from(
+        establishments.map((establishment) => establishment.id));
+  } on Exception catch (e) {
+    throw Exception(e);
+  }
 }
