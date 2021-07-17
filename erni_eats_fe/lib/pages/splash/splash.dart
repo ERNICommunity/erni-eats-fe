@@ -64,7 +64,7 @@ class _SplashPageState extends State<SplashPage> {
     return Center(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24),
-        child: Text('Bohužiaľ sa nepodarilo načítať dáta.'),
+        child: Text('Bohužiaľ, sa nepodarilo načítať dáta.'),
       ),
     );
   }
