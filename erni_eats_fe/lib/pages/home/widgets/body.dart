@@ -59,17 +59,7 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget> {
       child: ExpansionTile(
         title: ListTile(
           // todo show image
-          // trailing: Container(
-          //   height: 80,
-          //   width: 80,
-          //   decoration: BoxDecoration(
-          //     image: DecorationImage(
-          //       fit: BoxFit.fill,
-          //       image: AssetImage(establishment.imgUrl),
-          //     ),
-          //     shape: BoxShape.circle,
-          //   ),
-          // ),
+          // leading: _getLogoWidget(establishment),
           title: Text(establishment.name),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,6 +95,21 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget> {
         ],
         expandedAlignment: Alignment.topLeft,
         textColor: Colors.black,
+      ),
+    );
+  }
+
+  Widget _getLogoWidget(Establishment establishment) {
+    return Container(
+      height: 80,
+      width: 80,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.fill,
+          // todo get establishment logo
+          image: NetworkImage(''),
+        ),
+        shape: BoxShape.circle,
       ),
     );
   }

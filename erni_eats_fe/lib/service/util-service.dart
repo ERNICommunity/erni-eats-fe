@@ -8,7 +8,7 @@ Future<Map<String, List<DailyMenu>>> getDailyMenuRepresentationMap(
       DailyMenuItemType.Soup: [],
       DailyMenuItemType.MainDish: [],
     };
-    List<DailyMenu> dailyMenu = await getDailyMenuByDate(establishmentId, date);
+    List<DailyMenu> dailyMenu = await getDailyMenuByEstablishmentByDate(establishmentId, date);
     dailyMenu.forEach(
       (element) {
         if (element.type == DailyMenuItemType.Soup) {
