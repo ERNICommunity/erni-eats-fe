@@ -1,25 +1,47 @@
+import 'package:erni_eats_fe/data/data.dart';
 import 'package:erni_eats_fe/pages/home/widgets/body.dart';
 import 'package:erni_eats_fe/pages/home/widgets/sidebar.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+class HomePage extends StatefulWidget {
+  final HomePassedParam passedParam;
 
-  final String title;
+  HomePage(this.passedParam);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomePageState createState() => _HomePageState(this.passedParam);
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
+  HomePassedParam passedParam;
+
+  _HomePageState(this.passedParam);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(APP_TITLE),
       ),
-      drawer: homeSidebar(context),
-      body: homeBody(),
+      drawer: HomeSidebarWidget(context, passedParam),
+      body: HomeBodyWidget(passedParam),
+      onDrawerChanged: (bool isOpen) {
+        if (!isOpen) {
+          _updateHomeParam();
+        }
+      },
     );
+  }
+
+  void _updateHomeParam() async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String>? displayedEstablishmentsPrefs =
+        prefs.getStringList(SharedPreferencesKey.DisplayedEstablishments);
+    if (displayedEstablishmentsPrefs != null) {
+      setState(() {
+        passedParam = HomePassedParam(displayedEstablishmentsPrefs);
+      });
+    }
   }
 }

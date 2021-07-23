@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:erni_eats_fe/models/models.dart';
+import 'package:erni_eats_fe/data/data.dart';
 import 'package:http/http.dart' as http;
 
 String baseUrl = 'http://localhost:8080/api/v1/establishments';
 
-// GET localhost:8080/api/v1/establishments
-// vrati zoznam configuracii vsetkych restauracii o ktorych BE vie
+// GET /
+// vrati zoznam configuracii vsetkych podnikov o ktorych BE vie
 Future<List<Establishment>> getAllEstablishments() async {
   final response = await http.get(Uri.parse(baseUrl));
 
@@ -19,9 +19,9 @@ Future<List<Establishment>> getAllEstablishments() async {
   }
 }
 
-// GET localhost:8080/api/v1/establishments/clock-block/daily-menu?date=2021-01-05
-// vrati zoznam poloziek menu pre konkretny den
-Future<List<DailyMenu>> getDailyMenuByDate(String establishmentId, String date) async {
+// GET /{establishmentId}/daily-menu?date={date}
+// vrati zoznam poloziek menu vybraneho podniku pre konkretny den
+Future<List<DailyMenu>> getDailyMenuByEstablishmentByDate(String establishmentId, String date) async {
   String query = '$baseUrl/$establishmentId/daily-menu?$date';
   final response = await http.get(Uri.parse(query));
 
@@ -31,14 +31,12 @@ Future<List<DailyMenu>> getDailyMenuByDate(String establishmentId, String date) 
         jsonResponse.map((model) => DailyMenu.fromJson(model)));
     return dailyMenu;
   } else {
-    throw Exception('Failed to load daily menu for query: $query');
+    throw Exception('Failed to load establishment daily menu with query: $query');
   }
 }
 
-// GET localhost:8080/api/v1/establishments/clock-block/daily-menu
+// GET /{establishmentId}/daily-menu
 // vrati zoznam poloziek menu pre TODAY
-// todo use
 
-// GET localhost:8080/api/v1/establishments/clock-block
+// GET /{establishmentId}
 // vrati configuraciu (nazov, rating a dalsie info) danej restiky
-// todo use
