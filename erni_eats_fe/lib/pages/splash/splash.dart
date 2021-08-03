@@ -21,6 +21,7 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
+    // todo show different error message with problem
     return showErrorWidget
         ? _displayErrorWidget()
         : Center(
@@ -64,7 +65,24 @@ class _SplashPageState extends State<SplashPage> {
     return Center(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24),
-        child: Text('Bohužiaľ, sa nepodarilo načítať dáta.'),
+        child: AlertDialog(
+          // title: const Text('AlertDialog Title'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('Bohužiaľ, sa nepodarilo načítať dáta.'),
+              ],
+            ),
+          ),
+          // actions: <Widget>[
+          //   TextButton(
+          //     child: const Text('Text'),
+          //     onPressed: () {
+          //       Navigator.of(context).pop();
+          //     },
+          //   ),
+          // ],
+        ),
       ),
     );
   }
