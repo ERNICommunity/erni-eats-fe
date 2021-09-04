@@ -2,7 +2,6 @@ import 'package:erni_eats_fe/data/data.dart';
 import 'package:erni_eats_fe/pages/donate/donate.dart';
 import 'package:erni_eats_fe/pages/github-links/github-links.dart';
 import 'package:erni_eats_fe/service/http-service.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
