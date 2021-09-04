@@ -97,3 +97,13 @@ class DailyMenuItemType {
   static const Soup = 'SOUP';
   static const MainDish = 'MAIN_DISH';
 }
+
+class Iban {
+  final String name;
+  final String iban;
+
+  Iban({
+    required this.name,
+    required this.iban,
+  });
+}

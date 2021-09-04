@@ -2,7 +2,6 @@ import 'package:erni_eats_fe/utils/launch-url.dart';
 import 'package:flutter/material.dart';
 
 class GithubLinksRoute extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     String _title = 'Linky na GitHub';
@@ -12,9 +11,10 @@ class GithubLinksRoute extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(_title)),
       body: Container(
+        alignment: Alignment.center,
         padding: new EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),

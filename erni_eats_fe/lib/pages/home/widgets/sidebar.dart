@@ -1,4 +1,5 @@
 import 'package:erni_eats_fe/data/data.dart';
+import 'package:erni_eats_fe/pages/donate/donate.dart';
 import 'package:erni_eats_fe/pages/github-links/github-links.dart';
 import 'package:erni_eats_fe/service/http-service.dart';
 import 'package:flutter/cupertino.dart';
@@ -82,9 +83,7 @@ class _HomeSidebarWidgetState extends State<HomeSidebarWidget> {
                 ListTile(
                   leading: Icon(Icons.favorite, color: Colors.black54),
                   title: Text('Kúpte nám kávu'),
-                  onTap: () {
-                    // todo add donate feature
-                  },
+                  onTap: () => _navigateToDonatePage(context, 'Kúpte nám kávu'),
                 ),
                 ListTile(
                   leading: Icon(Icons.message, color: Colors.black54),
@@ -151,5 +150,12 @@ void _navigateToGitHubLinksPage(context) {
   Navigator.push(
     context,
     MaterialPageRoute(builder: (context) => GithubLinksRoute()),
+  );
+}
+
+void _navigateToDonatePage(context, title) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => DonateRoute()),
   );
 }
