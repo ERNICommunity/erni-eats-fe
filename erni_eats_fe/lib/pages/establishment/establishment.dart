@@ -1,4 +1,5 @@
 import 'package:erni_eats_fe/data/data.dart';
+import 'package:erni_eats_fe/pages/home/widgets/contact-info.dart';
 import 'package:erni_eats_fe/pages/home/widgets/daily-menu.dart';
 import 'package:erni_eats_fe/pages/home/widgets/establishment-summary.dart';
 import 'package:erni_eats_fe/utils/launch-url.dart';
@@ -36,7 +37,7 @@ class EstablishmentPageWidget extends StatelessWidget {
         ListTile(title: Text('Recenzie')),
         // todo
         ListTile(title: Text('Kontakt')),
-        // todo
+        ContactInfoWidget(establishment),
         TextButton(
           child: const Text('Denné menu na stránke podniku'),
           onPressed: () => launchURL(establishment.dailyMenuUrl),
