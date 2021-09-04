@@ -53,7 +53,7 @@ class _SplashPageState extends State<SplashPage> {
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  HomePage(HomePassedParam(this.displayedEstablishments))));
+                  HomePage(HomePagePassedParameters(this.displayedEstablishments))));
     } on Exception catch (_) {
       setState(() {
         showErrorWidget = true;

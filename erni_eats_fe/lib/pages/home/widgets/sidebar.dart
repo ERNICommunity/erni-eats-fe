@@ -1,19 +1,19 @@
 import 'package:erni_eats_fe/data/data.dart';
+import 'package:erni_eats_fe/pages/donate/donate.dart';
 import 'package:erni_eats_fe/pages/github-links/github-links.dart';
 import 'package:erni_eats_fe/service/http-service.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeSidebarWidget extends StatefulWidget {
   final BuildContext context;
-  final HomePassedParam passedParam;
+  final HomePagePassedParameters passedParameters;
 
-  HomeSidebarWidget(this.context, this.passedParam);
+  HomeSidebarWidget(this.context, this.passedParameters);
 
   @override
   _HomeSidebarWidgetState createState() =>
-      _HomeSidebarWidgetState(this.context, this.passedParam.displayedEstablishments);
+      _HomeSidebarWidgetState(this.context, this.passedParameters.displayedEstablishments);
 }
 
 class _HomeSidebarWidgetState extends State<HomeSidebarWidget> {
@@ -82,9 +82,7 @@ class _HomeSidebarWidgetState extends State<HomeSidebarWidget> {
                 ListTile(
                   leading: Icon(Icons.favorite, color: Colors.black54),
                   title: Text('Kúpte nám kávu'),
-                  onTap: () {
-                    // todo add donate feature
-                  },
+                  onTap: () => _navigateToDonatePage(context, 'Kúpte nám kávu'),
                 ),
                 ListTile(
                   leading: Icon(Icons.message, color: Colors.black54),
@@ -151,5 +149,12 @@ void _navigateToGitHubLinksPage(context) {
   Navigator.push(
     context,
     MaterialPageRoute(builder: (context) => GithubLinksRoute()),
+  );
+}
+
+void _navigateToDonatePage(context, title) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => DonateRoute()),
   );
 }

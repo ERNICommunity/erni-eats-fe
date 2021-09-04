@@ -4,10 +4,16 @@ class SharedPreferencesKey {
   static const DisplayedEstablishments = 'displayed_establishments';
 }
 
-class HomePassedParam {
+class HomePagePassedParameters {
   List<String> displayedEstablishments;
 
-  HomePassedParam(this.displayedEstablishments);
+  HomePagePassedParameters(this.displayedEstablishments);
+}
+
+class EstablishmentPagePassedParameters {
+  Establishment establishment;
+
+  EstablishmentPagePassedParameters(this.establishment);
 }
 
 class Establishment {
@@ -96,4 +102,38 @@ class DailyMenu {
 class DailyMenuItemType {
   static const Soup = 'SOUP';
   static const MainDish = 'MAIN_DISH';
+}
+
+class Iban {
+  final String name;
+  final String iban;
+
+  Iban({
+    required this.name,
+    required this.iban,
+  });
+}
+
+class Review {
+  final String? authorName;
+  final num rating;
+  final String? imageUrl;
+  final String reviewText;
+
+  Review({
+    this.authorName,
+    required this.rating,
+    this.imageUrl,
+    required this.reviewText,
+  });
+}
+
+class ContactInfo {
+  final String address;
+  final String openHours;
+
+  ContactInfo({
+    required this.address,
+    required this.openHours,
+  });
 }

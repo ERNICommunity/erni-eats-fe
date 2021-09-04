@@ -1,7 +1,6 @@
 import 'package:erni_eats_fe/data/data.dart';
 import 'package:erni_eats_fe/service/util-service.dart';
 import 'package:erni_eats_fe/utils/launch-url.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DailyMenuWidget extends StatefulWidget {

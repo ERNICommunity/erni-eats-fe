@@ -1,22 +1,22 @@
 import 'package:erni_eats_fe/data/data.dart';
-import 'package:erni_eats_fe/pages/home/widgets/body.dart';
+import 'package:erni_eats_fe/pages/home/widgets/home-body.dart';
 import 'package:erni_eats_fe/pages/home/widgets/sidebar.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
-  final HomePassedParam passedParam;
+  final HomePagePassedParameters passedParameters;
 
-  HomePage(this.passedParam);
+  HomePage(this.passedParameters);
 
   @override
-  _HomePageState createState() => _HomePageState(this.passedParam);
+  _HomePageState createState() => _HomePageState(this.passedParameters);
 }
 
 class _HomePageState extends State<HomePage> {
-  HomePassedParam passedParam;
+  HomePagePassedParameters passedParameters;
 
-  _HomePageState(this.passedParam);
+  _HomePageState(this.passedParameters);
 
   @override
   Widget build(BuildContext context) {
@@ -24,23 +24,23 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(APP_TITLE),
       ),
-      drawer: HomeSidebarWidget(context, passedParam),
-      body: HomeBodyWidget(passedParam),
+      drawer: HomeSidebarWidget(context, passedParameters),
+      body: HomeBodyWidget(passedParameters),
       onDrawerChanged: (bool isOpen) {
         if (!isOpen) {
-          _updateHomeParam();
+          _updateHomeParameters();
         }
       },
     );
   }
 
-  void _updateHomeParam() async {
+  void _updateHomeParameters() async {
     final prefs = await SharedPreferences.getInstance();
     List<String>? displayedEstablishmentsPrefs =
         prefs.getStringList(SharedPreferencesKey.DisplayedEstablishments);
     if (displayedEstablishmentsPrefs != null) {
       setState(() {
-        passedParam = HomePassedParam(displayedEstablishmentsPrefs);
+        passedParameters = HomePagePassedParameters(displayedEstablishmentsPrefs);
       });
     }
   }
