@@ -4,10 +4,16 @@ class SharedPreferencesKey {
   static const DisplayedEstablishments = 'displayed_establishments';
 }
 
-class HomePassedParam {
+class HomePagePassedParameters {
   List<String> displayedEstablishments;
 
-  HomePassedParam(this.displayedEstablishments);
+  HomePagePassedParameters(this.displayedEstablishments);
+}
+
+class EstablishmentPagePassedParameters {
+  Establishment establishment;
+
+  EstablishmentPagePassedParameters(this.establishment);
 }
 
 class Establishment {

@@ -8,13 +8,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeSidebarWidget extends StatefulWidget {
   final BuildContext context;
-  final HomePassedParam passedParam;
+  final HomePagePassedParameters passedParameters;
 
-  HomeSidebarWidget(this.context, this.passedParam);
+  HomeSidebarWidget(this.context, this.passedParameters);
 
   @override
   _HomeSidebarWidgetState createState() =>
-      _HomeSidebarWidgetState(this.context, this.passedParam.displayedEstablishments);
+      _HomeSidebarWidgetState(this.context, this.passedParameters.displayedEstablishments);
 }
 
 class _HomeSidebarWidgetState extends State<HomeSidebarWidget> {
