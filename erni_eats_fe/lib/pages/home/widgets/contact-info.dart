@@ -5,6 +5,12 @@ class ContactInfoWidget extends StatelessWidget {
 
   final Establishment establishment;
 
+  // todo use data from BE
+  final ContactInfo dummyContactInfo = ContactInfo(
+    address: 'Street name 12, 345 67 Petrzalka',
+    openHours: '12:34 - 56:78',
+  );
+
   ContactInfoWidget(this.establishment);
 
   @override
@@ -22,7 +28,7 @@ class ContactInfoWidget extends StatelessWidget {
                   children: [
                     Icon(Icons.location_on),
                     Padding(padding: EdgeInsets.only(right: 16)),
-                    Text('Street name 12, 345 67 Petrzalka'),
+                    Text(dummyContactInfo.address),
                   ],
                 ),
                 Padding(padding: EdgeInsets.only(bottom: 8)),
@@ -32,7 +38,7 @@ class ContactInfoWidget extends StatelessWidget {
                     Icon(Icons.access_time),
                     Padding(padding: EdgeInsets.only(right: 16)),
                     Text('Otvorené:'),
-                    Text('12:34 - 56:78'),
+                    Text(dummyContactInfo.openHours),
                   ],
                 ),
               ],

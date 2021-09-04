@@ -127,3 +127,13 @@ class Review {
     required this.reviewText,
   });
 }
+
+class ContactInfo {
+  final String address;
+  final String openHours;
+
+  ContactInfo({
+    required this.address,
+    required this.openHours,
+  });
+}
