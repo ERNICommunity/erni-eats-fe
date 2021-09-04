@@ -16,7 +16,7 @@ class EstablishmentPage extends StatelessWidget {
     Establishment establishment = passedParameters.establishment;
     return Scaffold(
       appBar: AppBar(
-        title: Text(establishment.name),
+        title: Text('Detail podniku'),
       ),
       body: EstablishmentPageWidget(establishment),
     );

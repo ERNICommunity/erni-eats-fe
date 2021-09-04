@@ -13,7 +13,7 @@ class StarsEstimation extends StatelessWidget {
       child: Row(
         children: [
           Row(children: _starsForRating(rating)),
-          if (userRatingsTotal != null) Text('($userRatingsTotal)'),
+          if (userRatingsTotal != null) Text('($userRatingsTotal)', style: TextStyle(color: Colors.black54)),
         ],
       ),
     );
