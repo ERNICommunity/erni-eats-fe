@@ -113,3 +113,17 @@ class Iban {
     required this.iban,
   });
 }
+
+class Review {
+  final String? authorName;
+  final num rating;
+  final String? imageUrl;
+  final String reviewText;
+
+  Review({
+    this.authorName,
+    required this.rating,
+    this.imageUrl,
+    required this.reviewText,
+  });
+}

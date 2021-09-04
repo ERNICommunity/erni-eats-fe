@@ -1,4 +1,5 @@
 import 'package:erni_eats_fe/data/data.dart';
+import 'package:erni_eats_fe/pages/home/widgets/stars-estimation.dart';
 import 'package:flutter/material.dart';
 
 class EstablishmentSummaryWidget extends StatelessWidget {
@@ -18,12 +19,7 @@ class EstablishmentSummaryWidget extends StatelessWidget {
           establishment.description != null
               ? Text('${establishment.description}')
               : Column(),
-          Row(
-            children: [
-              Row(children: _starsForRating(establishment.rating)),
-              Text('(${establishment.userRatingsTotal})'),
-            ],
-          ),
+          StarsEstimation(establishment.rating, establishment.userRatingsTotal),
           Text(
               '${_getPriceLevel(establishment.priceLevel)} • ${_getEstablishmentType(establishment.type)}'),
         ],
@@ -44,37 +40,6 @@ class EstablishmentSummaryWidget extends StatelessWidget {
         shape: BoxShape.circle,
       ),
     );
-  }
-
-  List<Icon> _starsForRating(_rating) {
-    num roundedToHalfRating =
-        double.parse((_rating * 2).toStringAsFixed(0)) / 2;
-    bool ratingWithHalf = roundedToHalfRating * 10 % 10 == 5;
-
-    List<Icon> stars = [];
-    for (int i = 0; i < 5; i++) {
-      bool halfStarIteration = i + 1 == _rating.round() % 10;
-      if (ratingWithHalf && halfStarIteration) {
-        stars.add(Icon(
-          Icons.star_half,
-          size: 20.0,
-          color: Colors.black54,
-        ));
-      } else if (i < roundedToHalfRating) {
-        stars.add(Icon(
-          Icons.star,
-          size: 20.0,
-          color: Colors.black54,
-        ));
-      } else {
-        stars.add(Icon(
-          Icons.star_border,
-          size: 20.0,
-          color: Colors.black54,
-        ));
-      }
-    }
-    return stars;
   }
 
   String _getPriceLevel(_priceLevel) {
