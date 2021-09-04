@@ -2,7 +2,6 @@ import 'package:erni_eats_fe/data/data.dart';
 import 'package:flutter/material.dart';
 
 class ContactInfoWidget extends StatelessWidget {
-
   final Establishment establishment;
 
   // todo use data from BE
@@ -23,7 +22,6 @@ class ContactInfoWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: Column(
               children: [
-                // todo address
                 Row(
                   children: [
                     Icon(Icons.location_on),
@@ -32,7 +30,6 @@ class ContactInfoWidget extends StatelessWidget {
                   ],
                 ),
                 Padding(padding: EdgeInsets.only(bottom: 8)),
-                // todo open hours
                 Row(
                   children: [
                     Icon(Icons.access_time),
@@ -48,5 +45,4 @@ class ContactInfoWidget extends StatelessWidget {
       ),
     );
   }
-
 }
