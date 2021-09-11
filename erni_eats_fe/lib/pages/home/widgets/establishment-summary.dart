@@ -21,7 +21,7 @@ class EstablishmentSummaryWidget extends StatelessWidget {
               : Column(),
           StarsEstimation(establishment.rating, establishment.userRatingsTotal),
           Text(
-            '${_getPriceLevel(establishment.priceLevel)} • ${_getEstablishmentType(establishment.type)}',
+            '${_getPriceLevel(establishment.priceLevel)}${_getEstablishmentType(establishment.type)}',
             style: TextStyle(color: Colors.black54),
           ),
         ],
@@ -47,16 +47,24 @@ class EstablishmentSummaryWidget extends StatelessWidget {
   String _getPriceLevel(_priceLevel) {
     var multiply;
     switch (_priceLevel) {
+      case EstablishmentPriceLevel.Free:
+        return 'Free';
       case EstablishmentPriceLevel.Inexpensive:
         multiply = 1;
         break;
       case EstablishmentPriceLevel.Moderate:
         multiply = 2;
         break;
+      case EstablishmentPriceLevel.Expensive:
+        multiply = 3;
+        break;
+      case EstablishmentPriceLevel.VeryExpensive:
+        multiply = 4;
+        break;
       default:
-        multiply = 0;
+        return '';
     }
-    return '${'€' * multiply}';
+    return '${'€' * multiply} • ';
   }
 
   String _getEstablishmentType(_type) {
