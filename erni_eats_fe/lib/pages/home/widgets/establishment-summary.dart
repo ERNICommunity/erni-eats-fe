@@ -1,5 +1,8 @@
+import 'dart:typed_data';
+
 import 'package:erni_eats_fe/data/data.dart';
 import 'package:erni_eats_fe/pages/home/widgets/stars-estimation.dart';
+import 'package:erni_eats_fe/service/http-service.dart';
 import 'package:flutter/material.dart';
 
 class EstablishmentSummaryWidget extends StatelessWidget {
@@ -11,13 +14,14 @@ class EstablishmentSummaryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       // todo show image
-      // leading: _getLogoWidget(establishment),
+      leading: _getLogoWidget(establishment),
       title: Text(establishment.name),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           establishment.description != null
-              ? Text('${establishment.description}', style: TextStyle(color: Colors.black))
+              ? Text('${establishment.description}',
+                  style: TextStyle(color: Colors.black))
               : Column(),
           StarsEstimation(establishment.rating, establishment.userRatingsTotal),
           Text(
@@ -30,17 +34,33 @@ class EstablishmentSummaryWidget extends StatelessWidget {
   }
 
   Widget _getLogoWidget(Establishment establishment) {
-    return Container(
-      height: 80,
-      width: 80,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          fit: BoxFit.fill,
-          // todo get establishment logo
-          image: NetworkImage(''),
-        ),
-        shape: BoxShape.circle,
-      ),
+    return FutureBuilder(
+      future: getLogoByEstablishmentId(this.establishment.id),
+      initialData: null,
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          // todo implement if-case for ConnectionState.waiting (show spinner)
+          return Column();
+        }
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.data != null) {
+          Uint8List logo = snapshot.data;
+          Image logoImage = Image.memory(logo);
+          return Container(
+            height: 80,
+            width: 80,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.fitHeight,
+                image: logoImage.image,
+              ),
+              shape: BoxShape.circle,
+            ),
+          );
+        }
+        // todo implement if-case for ConnectionState.none (show message)
+        return Column();
+      },
     );
   }
 
