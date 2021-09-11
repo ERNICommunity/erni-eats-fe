@@ -29,18 +29,19 @@ class Establishment {
   final int userRatingsTotal;
   final String priceLevel;
 
-  Establishment(
-      {required this.id,
-      required this.restaurantId,
-      required this.name,
-      this.alias,
-      this.description,
-      required this.type,
-      required this.websiteUrl,
-      required this.dailyMenuUrl,
-      required this.rating,
-      required this.userRatingsTotal,
-      required this.priceLevel});
+  Establishment({
+    required this.id,
+    required this.restaurantId,
+    required this.name,
+    this.alias,
+    this.description,
+    required this.type,
+    required this.websiteUrl,
+    required this.dailyMenuUrl,
+    required this.rating,
+    required this.userRatingsTotal,
+    required this.priceLevel,
+  });
 
   factory Establishment.fromJson(Map json) {
     return Establishment(
