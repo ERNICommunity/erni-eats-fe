@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 String baseUrl = 'http://localhost:8080/api/v1/establishments';
 
 // GET /
-// vrati zoznam configuracii vsetkych podnikov o ktorych BE vie
 Future<List<Establishment>> getAllEstablishments() async {
   final response = await http.get(Uri.parse(baseUrl));
 
@@ -20,7 +19,6 @@ Future<List<Establishment>> getAllEstablishments() async {
 }
 
 // GET /{establishmentId}/daily-menu?date={date}
-// vrati zoznam poloziek menu vybraneho podniku pre konkretny den
 Future<List<DailyMenu>> getDailyMenuByEstablishmentByDate(
     String establishmentId, String date) async {
   String query = '$baseUrl/$establishmentId/daily-menu?$date';
@@ -44,7 +42,6 @@ Future<List<DailyMenu>> getDailyMenuByEstablishmentByDate(
 // vrati configuraciu (nazov, rating a dalsie info) danej restiky
 
 // GET /{establishmentId}/reviews
-// vrati zoznam recenzii pre podnik
 Future<List<Review>> getReviewsByEstablishmentId(String establishmentId) async {
   String query = '$baseUrl/$establishmentId/reviews';
   final response = await http.get(Uri.parse(query));
@@ -56,5 +53,21 @@ Future<List<Review>> getReviewsByEstablishmentId(String establishmentId) async {
     return reviews;
   } else {
     throw Exception('Failed to load establishment reviews with query: $query');
+  }
+}
+
+// GET /{establishmentId}/contact-info
+Future<ContactInfo> getContactInfoByEstablishmentId(
+    String establishmentId) async {
+  String query = '$baseUrl/$establishmentId/contact-info';
+  final response = await http.get(Uri.parse(query));
+
+  if (response.statusCode == 200) {
+    Map jsonResponse = jsonDecode(utf8.decode(response.bodyBytes));
+    ContactInfo contactInfo = ContactInfo.fromJson(jsonResponse);
+    return contactInfo;
+  } else {
+    throw Exception(
+        'Failed to load establishment contact info with query: $query');
   }
 }
