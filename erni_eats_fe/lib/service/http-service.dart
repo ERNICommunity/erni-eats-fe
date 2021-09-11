@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:erni_eats_fe/data/data.dart';
 import 'package:http/http.dart' as http;
@@ -66,6 +67,20 @@ Future<ContactInfo> getContactInfoByEstablishmentId(
     Map jsonResponse = jsonDecode(utf8.decode(response.bodyBytes));
     ContactInfo contactInfo = ContactInfo.fromJson(jsonResponse);
     return contactInfo;
+  } else {
+    throw Exception(
+        'Failed to load establishment contact info with query: $query');
+  }
+}
+
+// GET /{establishmentId}/logo
+Future<Uint8List> getLogoByEstablishmentId(String establishmentId) async {
+  String query = '$baseUrl/$establishmentId/logo';
+
+  final response = await http.get(Uri.parse(query));
+
+  if (response.statusCode == 200) {
+    return response.bodyBytes;
   } else {
     throw Exception(
         'Failed to load establishment contact info with query: $query');
