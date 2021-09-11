@@ -21,7 +21,8 @@ Future<List<Establishment>> getAllEstablishments() async {
 
 // GET /{establishmentId}/daily-menu?date={date}
 // vrati zoznam poloziek menu vybraneho podniku pre konkretny den
-Future<List<DailyMenu>> getDailyMenuByEstablishmentByDate(String establishmentId, String date) async {
+Future<List<DailyMenu>> getDailyMenuByEstablishmentByDate(
+    String establishmentId, String date) async {
   String query = '$baseUrl/$establishmentId/daily-menu?$date';
   final response = await http.get(Uri.parse(query));
 
@@ -31,7 +32,8 @@ Future<List<DailyMenu>> getDailyMenuByEstablishmentByDate(String establishmentId
         jsonResponse.map((model) => DailyMenu.fromJson(model)));
     return dailyMenu;
   } else {
-    throw Exception('Failed to load establishment daily menu with query: $query');
+    throw Exception(
+        'Failed to load establishment daily menu with query: $query');
   }
 }
 
@@ -40,3 +42,19 @@ Future<List<DailyMenu>> getDailyMenuByEstablishmentByDate(String establishmentId
 
 // GET /{establishmentId}
 // vrati configuraciu (nazov, rating a dalsie info) danej restiky
+
+// GET /{establishmentId}/reviews
+// vrati zoznam recenzii pre podnik
+Future<List<Review>> getReviewsByEstablishmentId(String establishmentId) async {
+  String query = '$baseUrl/$establishmentId/reviews';
+  final response = await http.get(Uri.parse(query));
+
+  if (response.statusCode == 200) {
+    Iterable jsonResponse = json.decode(utf8.decode(response.bodyBytes));
+    List<Review> reviews =
+        List<Review>.from(jsonResponse.map((model) => Review.fromJson(model)));
+    return reviews;
+  } else {
+    throw Exception('Failed to load establishment reviews with query: $query');
+  }
+}

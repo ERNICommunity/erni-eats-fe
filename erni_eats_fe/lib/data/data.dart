@@ -115,17 +115,32 @@ class Iban {
 }
 
 class Review {
+  final String id;
+  final String establishmentId;
   final String? authorName;
   final num rating;
   final String? imageUrl;
   final String reviewText;
 
   Review({
+    required this.id,
+    required this.establishmentId,
     this.authorName,
     required this.rating,
     this.imageUrl,
     required this.reviewText,
   });
+
+  factory Review.fromJson(Map json) {
+    return Review(
+      id: json['id'],
+      establishmentId: json['establishmentId'],
+      authorName: json['authorName'],
+      rating: json['rating'],
+      imageUrl: json['imageUrl'],
+      reviewText: json['reviewText'],
+    );
+  }
 }
 
 class ContactInfo {
