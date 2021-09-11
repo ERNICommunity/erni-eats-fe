@@ -67,11 +67,16 @@ class Establishment {
 class EstablishmentType {
   static const Restaurant = "RESTAURANT";
   static const Pub = "PUB";
+  static const FoodCourt = "FOOD_COURT";
+  static const FastFool = "FAST_FOOD";
 }
 
 class EstablishmentPriceLevel {
-  static const Moderate = "MODERATE";
+  static const Free = "FREE";
   static const Inexpensive = "INEXPENSIVE";
+  static const Moderate = "MODERATE";
+  static const Expensive = "EXPENSIVE";
+  static const VeryExpensive = "VERY_EXPENSIVE";
 }
 
 class DailyMenu {
@@ -144,11 +149,28 @@ class Review {
 }
 
 class ContactInfo {
+  final String id;
+  final String establishmentId;
   final String address;
-  final String openHours;
+  final String? openHours;
+  final String coordinates;
 
   ContactInfo({
+    required this.id,
+    required this.establishmentId,
     required this.address,
-    required this.openHours,
+    // todo open hours object
+    this.openHours,
+    required this.coordinates,
   });
+
+  factory ContactInfo.fromJson(Map json) {
+    return ContactInfo(
+      id: json['id'],
+      establishmentId: json['establishmentId'],
+      address: json['address'],
+      openHours: json['openHours'],
+      coordinates: json['coordinates'],
+    );
+  }
 }
