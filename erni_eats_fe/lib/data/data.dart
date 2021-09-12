@@ -153,15 +153,14 @@ class ContactInfo {
   final String id;
   final String establishmentId;
   final String address;
-  final String? openHours;
+  final List<OpenHours> openHours;
   final String coordinates;
 
   ContactInfo({
     required this.id,
     required this.establishmentId,
     required this.address,
-    // todo open hours object
-    this.openHours,
+    required this.openHours,
     required this.coordinates,
   });
 
@@ -170,8 +169,28 @@ class ContactInfo {
       id: json['id'],
       establishmentId: json['establishmentId'],
       address: json['address'],
-      openHours: json['openHours'],
+      openHours: List<OpenHours>.from(json['openHours']
+          .map((openHoursItem) => OpenHours.fromJson(openHoursItem))),
       coordinates: json['coordinates'],
     );
+  }
+
+  @override
+  String toString() {
+    return 'ContactInfo{establishmentId: $establishmentId, address: $address, openHours: $openHours, coordinates: $coordinates}';
+  }
+}
+
+class OpenHours {
+  final String day;
+  final String openHours;
+
+  OpenHours({
+    required this.day,
+    required this.openHours,
+  });
+
+  factory OpenHours.fromJson(Map json) {
+    return OpenHours(day: json['day'], openHours: json['openHours']);
   }
 }
