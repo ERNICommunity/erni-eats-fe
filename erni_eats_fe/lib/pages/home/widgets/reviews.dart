@@ -1,54 +1,56 @@
 import 'package:erni_eats_fe/data/data.dart';
 import 'package:erni_eats_fe/pages/home/widgets/stars-estimation.dart';
+import 'package:erni_eats_fe/service/http-service.dart';
 import 'package:flutter/material.dart';
 
 class ReviewsWidget extends StatelessWidget {
   final Establishment establishment;
 
-  // todo use data from BE
-  final List<Review> dummyReviews = [
-    Review(
-      authorName: 'Jane Doe',
-      imageUrl:
-          'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTd8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80',
-      rating: 5.0,
-      reviewText: 'Awesome',
-    ),
-    Review(
-      imageUrl:
-          'https://pbs.twimg.com/profile_images/955633850264190976/y8A1kJ_g.jpg',
-      rating: 1.5,
-      reviewText: 'Nedalo sa',
-    ),
-    Review(
-      authorName: 'John Doe',
-      rating: 3.0,
-      reviewText: 'Dalo sa',
-    ),
-  ];
-
   ReviewsWidget(this.establishment);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: List.generate(dummyReviews.length, (index) {
-        Review review = dummyReviews[index];
-        return Card(
-          child: Column(
-            children: [
-              if (review.imageUrl != null)
-                _getReviewImageWidget(review.imageUrl!),
-              StarsEstimation(review.rating, null),
-              Text("\"${review.reviewText}\""),
-              if (review.authorName != null)
-                Text(review.authorName!)
-              else
-                Text('(Anonymously)'),
-            ],
-          ),
-        );
-      }),
+    return FutureBuilder(
+      future: getReviewsByEstablishmentId(this.establishment.id),
+      initialData: [],
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(color: Colors.grey),
+          );
+        }
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.data.length > 0 &&
+            snapshot.data != null) {
+          return ListView.builder(
+            itemCount: snapshot.data.length,
+            itemBuilder: (context, index) {
+              Review review = snapshot.data[index];
+              return Card(
+                child: Column(
+                  children: [
+                    if (review.imageUrl != null)
+                      _getReviewImageWidget(review.imageUrl!),
+                    StarsEstimation(review.rating, null),
+                    Text("\"${review.reviewText}\""),
+                    if (review.authorName != null)
+                      Text(review.authorName!)
+                    else
+                      Text('(Anonymously)'),
+                  ],
+                ),
+              );
+            },
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+          );
+        }
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.data.length == 0) {
+          return Text('Zatiaľ nie sú žiadne recenzie.');
+        }
+        return Text('Bohužiaľ, sa nepodarilo načítať recenzie.');
+      },
     );
   }
 }

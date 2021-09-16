@@ -25,8 +25,15 @@ class _SplashPageState extends State<SplashPage> {
     return showErrorWidget
         ? _displayErrorWidget()
         : Center(
-            // todo add splash image
-            child: CircularProgressIndicator(),
+            child: Container(
+              height: 80,
+              width: 80,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: Image.asset('splash-image-square.png').image,
+                ),
+              ),
+            ),
           );
   }
 
@@ -52,8 +59,8 @@ class _SplashPageState extends State<SplashPage> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) =>
-                  HomePage(HomePagePassedParameters(this.displayedEstablishments))));
+              builder: (context) => HomePage(
+                  HomePagePassedParameters(this.displayedEstablishments))));
     } on Exception catch (_) {
       setState(() {
         showErrorWidget = true;

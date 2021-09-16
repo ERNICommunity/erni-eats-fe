@@ -12,8 +12,8 @@ class HomeSidebarWidget extends StatefulWidget {
   HomeSidebarWidget(this.context, this.passedParameters);
 
   @override
-  _HomeSidebarWidgetState createState() =>
-      _HomeSidebarWidgetState(this.context, this.passedParameters.displayedEstablishments);
+  _HomeSidebarWidgetState createState() => _HomeSidebarWidgetState(
+      this.context, this.passedParameters.displayedEstablishments);
 }
 
 class _HomeSidebarWidgetState extends State<HomeSidebarWidget> {
@@ -65,13 +65,19 @@ class _HomeSidebarWidgetState extends State<HomeSidebarWidget> {
               future: getAllEstablishments(),
               initialData: [],
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                // todo implement if-case for ConnectionState.waiting (show spinner)
-                // todo implement if-case for ConnectionState.none (show message)
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(color: Colors.grey),
+                  );
+                }
                 if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.data != null &&
                     snapshot.data.length > 0) {
                   return _getEstablishmentsListWidget(snapshot);
                 }
-                return Column();
+                return Center(
+                  child: Text("Bohužiaľ, sa nepodarilo načítať reštaurácie."),
+                );
               },
             ),
             ListTile(
