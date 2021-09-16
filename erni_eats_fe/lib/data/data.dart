@@ -28,6 +28,7 @@ class Establishment {
   final num rating;
   final int userRatingsTotal;
   final String priceLevel;
+  final ContactInfo? contactInfo;
 
   Establishment({
     required this.id,
@@ -41,6 +42,7 @@ class Establishment {
     required this.rating,
     required this.userRatingsTotal,
     required this.priceLevel,
+    this.contactInfo,
   });
 
   factory Establishment.fromJson(Map json) {
@@ -56,12 +58,13 @@ class Establishment {
       rating: json['rating'],
       userRatingsTotal: json['userRatingsTotal'],
       priceLevel: json['priceLevel'],
+      contactInfo: ContactInfo.fromJson(json['contactInfo']),
     );
   }
 
   @override
   String toString() {
-    return 'Establishment{id: $id, restaurantId: $restaurantId, name: $name, alias: $alias, description: $description, type: $type, websiteUrl: $websiteUrl, dailyMenuUrl: $dailyMenuUrl, rating: $rating, userRatingsTotal: $userRatingsTotal, priceLevel: $priceLevel}';
+    return 'Establishment{id: $id, restaurantId: $restaurantId, name: $name, alias: $alias, description: $description, type: $type, websiteUrl: $websiteUrl, dailyMenuUrl: $dailyMenuUrl, rating: $rating, userRatingsTotal: $userRatingsTotal, priceLevel: $priceLevel, contactInfo: $contactInfo}';
   }
 }
 
