@@ -57,22 +57,6 @@ Future<List<Review>> getReviewsByEstablishmentId(String establishmentId) async {
   }
 }
 
-// GET /{establishmentId}/contact-info
-Future<ContactInfo> getContactInfoByEstablishmentId(
-    String establishmentId) async {
-  String query = '$baseUrl/$establishmentId/contact-info';
-  final response = await http.get(Uri.parse(query));
-
-  if (response.statusCode == 200) {
-    Map jsonResponse = jsonDecode(utf8.decode(response.bodyBytes));
-    ContactInfo contactInfo = ContactInfo.fromJson(jsonResponse);
-    return contactInfo;
-  } else {
-    throw Exception(
-        'Failed to load establishment contact info with query: $query');
-  }
-}
-
 // GET /{establishmentId}/logo
 Future<Uint8List> getLogoByEstablishmentId(String establishmentId) async {
   String query = '$baseUrl/$establishmentId/logo';

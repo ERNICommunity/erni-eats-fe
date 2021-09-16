@@ -1,5 +1,4 @@
 import 'package:erni_eats_fe/data/data.dart';
-import 'package:erni_eats_fe/service/http-service.dart';
 import 'package:flutter/material.dart';
 
 class ContactInfoWidget extends StatelessWidget {
@@ -9,37 +8,26 @@ class ContactInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: getContactInfoByEstablishmentId(this.establishment.id),
-      initialData: null,
-      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          // todo implement if-case for ConnectionState.waiting (show spinner)
-          return Column();
-        }
-        if (snapshot.connectionState == ConnectionState.done &&
-            snapshot.data != null) {
-          ContactInfo contactInfo = snapshot.data;
-          return Card(
+    ContactInfo? contactInfo = this.establishment.contactInfo;
+    if (contactInfo == null) {
+      return Text('Nemáme informácie o adrese a otváracích hodinách.');
+    }
+    return Card(
+      child: Column(
+        children: [
+          // todo map
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: Column(
               children: [
-                // todo map
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                  child: Column(
-                    children: [
-                      _getAddressWidget(contactInfo.address),
-                      Padding(padding: EdgeInsets.only(bottom: 8)),
-                      _getOpenHoursWidget(contactInfo.openHours),
-                    ],
-                  ),
-                ),
+                _getAddressWidget(contactInfo.address),
+                Padding(padding: EdgeInsets.only(bottom: 8)),
+                _getOpenHoursWidget(contactInfo.openHours),
               ],
             ),
-          );
-        }
-        return Text('Nemáme informácie o adrese a otváracích hodinách.');
-      },
+          ),
+        ],
+      ),
     );
   }
 }
