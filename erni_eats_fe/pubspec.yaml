@@ -32,6 +32,7 @@ dependencies:
   http: ^0.13.3
   shared_preferences: ^2.0.6
   flutter_downloader: ^1.6.1
+  flutter_native_splash: ^1.2.3
 
 dev_dependencies:
   flutter_test:
@@ -81,3 +82,12 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+  # splash page
+  # when changed, run `flutter pub get` and `flutter pub run flutter_native_splash:create`
+flutter_native_splash:
+  background_image: "assets/splash-image-square.png"
+  image: "assets/splash-image-square.png"
+  android_gravity: fill_vertical
+  ios_content_mode: scaleAspectFit
+  web_image_mode: center

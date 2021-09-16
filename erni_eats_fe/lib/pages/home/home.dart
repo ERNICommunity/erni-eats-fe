@@ -22,8 +22,12 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(APP_TITLE),
-        leading: Image.asset('favicon/favicon-32x32.png'),
+        title: Row(
+          children: [
+            Image.asset('favicon/favicon-32x32.png'),
+            Text(APP_TITLE_SHORT)
+          ],
+        ),
       ),
       drawer: HomeSidebarWidget(context, passedParameters),
       body: HomeBodyWidget(passedParameters),
