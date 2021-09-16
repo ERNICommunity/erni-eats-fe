@@ -94,7 +94,7 @@ class ReRunnableFutureBuilder extends StatelessWidget {
         if (snapshot.connectionState != ConnectionState.done) {
           return Padding(
             padding: EdgeInsets.symmetric(vertical: 24),
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(color: Colors.grey),
           );
         }
         if (snapshot.hasError) {
