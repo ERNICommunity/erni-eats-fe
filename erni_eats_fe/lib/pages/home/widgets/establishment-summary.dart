@@ -39,8 +39,7 @@ class EstablishmentSummaryWidget extends StatelessWidget {
       initialData: null,
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          // todo implement if-case for ConnectionState.waiting (show spinner)
-          return Column();
+          return CircularProgressIndicator(color: Colors.grey);
         }
         if (snapshot.connectionState == ConnectionState.done &&
             snapshot.data != null) {
@@ -58,8 +57,17 @@ class EstablishmentSummaryWidget extends StatelessWidget {
             ),
           );
         }
-        // todo implement if-case for ConnectionState.none (show message)
-        return Column();
+        return Container(
+          height: 80,
+          width: 80,
+          child: CircleAvatar(
+            child: Icon(
+              Icons.dining,
+              size: 24.0,
+              color: Colors.grey,
+            ),
+          ),
+        );
       },
     );
   }

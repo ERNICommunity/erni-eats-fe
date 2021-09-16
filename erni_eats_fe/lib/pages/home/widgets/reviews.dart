@@ -15,16 +15,13 @@ class ReviewsWidget extends StatelessWidget {
       initialData: [],
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          // todo implement if-case for ConnectionState.waiting (show spinner)
-          return Column();
+          return Center(
+            child: CircularProgressIndicator(color: Colors.grey),
+          );
         }
         if (snapshot.connectionState == ConnectionState.done &&
-            snapshot.data == null) {
-          // todo implement if-case for ConnectionState.none (show message)
-          return Column();
-        }
-        if (snapshot.connectionState == ConnectionState.done &&
-            snapshot.data.length > 0) {
+            snapshot.data.length > 0 &&
+            snapshot.data != null) {
           return ListView.builder(
             itemCount: snapshot.data.length,
             itemBuilder: (context, index) {
@@ -52,7 +49,7 @@ class ReviewsWidget extends StatelessWidget {
             snapshot.data.length == 0) {
           return Text('Zatiaľ nie sú žiadne recenzie.');
         }
-        return Column();
+        return Text('Bohužiaľ, sa nepodarilo načítať recenzie.');
       },
     );
   }

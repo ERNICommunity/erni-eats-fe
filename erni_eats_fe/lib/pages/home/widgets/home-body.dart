@@ -28,15 +28,12 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget> {
       initialData: [],
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          // todo implement if-case for ConnectionState.waiting (show spinner)
-          return Column();
+          return Center(
+            child: CircularProgressIndicator(color: Colors.grey),
+          );
         }
         if (snapshot.connectionState == ConnectionState.done &&
-            snapshot.data == null) {
-          // todo implement if-case for ConnectionState.none (show message)
-          return Column();
-        }
-        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.data != null &&
             snapshot.data.length > 0) {
           return ListView.builder(
             itemCount: snapshot.data.length,
@@ -52,7 +49,9 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget> {
             shrinkWrap: true,
           );
         }
-        return Center();
+        return Center(
+          child: Text("Bohužiaľ, sa nepodarilo načítať reštaurácie."),
+        );
       },
     );
   }
