@@ -23,6 +23,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(APP_TITLE),
+        leading: Image.asset('favicon/favicon-32x32.png'),
       ),
       drawer: HomeSidebarWidget(context, passedParameters),
       body: HomeBodyWidget(passedParameters),
