@@ -17,6 +17,6 @@ jobs:
           channel: beta
       - run: flutter pub get
       - run: flutter test
-      - uses: ERNICommunity/erni-eats-fe@v7
+      - uses: ERNICommunity/erni-eats-fe
         with:
           baseHref: /erni-eats-fe/
