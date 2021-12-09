@@ -18,8 +18,6 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'dev'
-      - run: flutter config --enable-web
-      - run: cd erni-eats-fe
       - run: flutter pub get
       - run: flutter build web --release
       - run: |
