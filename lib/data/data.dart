@@ -1,4 +1,4 @@
-const String APP_TITLE = 'Eat11';
+const String APP_TITLE = 'eat11';
 const String APP_TITLE_SHORT = '11';
 
 class SharedPreferencesKey {

@@ -83,11 +83,11 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
-  # splash page
-  # when changed, run `flutter pub get` and `flutter pub run flutter_native_splash:create`
-flutter_native_splash:
-  background_image: "assets/splash-image-square.png"
-  image: "assets/splash-image-square.png"
-  android_gravity: fill_vertical
-  ios_content_mode: scaleAspectFit
-  web_image_mode: center
+#  # splash page
+#  # when changed, run `flutter pub get` and `flutter pub run flutter_native_splash:create`
+#flutter_native_splash:
+#  background_image: "assets/splash-image-square.png"
+#  image: "assets/splash-image-square.png"
+#  android_gravity: fill_vertical
+#  ios_content_mode: scaleAspectFit
+#  web_image_mode: center
