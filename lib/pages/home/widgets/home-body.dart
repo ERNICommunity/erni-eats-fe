@@ -75,7 +75,6 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget> {
           ),
         ],
         expandedAlignment: Alignment.topLeft,
-        textColor: Colors.black,
       ),
     );
   }

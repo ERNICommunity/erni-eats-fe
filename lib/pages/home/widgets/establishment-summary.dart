@@ -20,13 +20,11 @@ class EstablishmentSummaryWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           establishment.description != null
-              ? Text('${establishment.description}',
-                  style: TextStyle(color: Colors.black))
+              ? Text('${establishment.description}')
               : Column(),
           StarsEstimation(establishment.rating, establishment.userRatingsTotal),
           Text(
             '${_getPriceLevel(establishment.priceLevel)}${_getEstablishmentType(establishment.type)}',
-            style: TextStyle(color: Colors.black54),
           ),
         ],
       ),
@@ -64,7 +62,6 @@ class EstablishmentSummaryWidget extends StatelessWidget {
             child: Icon(
               Icons.dining,
               size: 24.0,
-              color: Colors.grey,
             ),
           ),
         );

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class StarsEstimation extends StatelessWidget {
@@ -13,7 +12,7 @@ class StarsEstimation extends StatelessWidget {
       child: Row(
         children: [
           Row(children: _starsForRating(rating)),
-          if (userRatingsTotal != null) Text('($userRatingsTotal)', style: TextStyle(color: Colors.black54)),
+          if (userRatingsTotal != null) Text('($userRatingsTotal)'),
         ],
       ),
     );
@@ -31,19 +30,16 @@ class StarsEstimation extends StatelessWidget {
         stars.add(Icon(
           Icons.star_half,
           size: 20.0,
-          color: Colors.black54,
         ));
       } else if (i < roundedToHalfRating) {
         stars.add(Icon(
           Icons.star,
           size: 20.0,
-          color: Colors.black54,
         ));
       } else {
         stars.add(Icon(
           Icons.star_border,
           size: 20.0,
-          color: Colors.black54,
         ));
       }
     }

@@ -1,6 +1,8 @@
 import 'package:erni_eats_fe/data/data.dart';
 import 'package:erni_eats_fe/pages/home/home.dart';
 import 'package:erni_eats_fe/service/util-service.dart';
+import 'package:erni_eats_fe/theme/app-theme.dart';
+import 'package:erni_eats_fe/theme/config.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -39,6 +41,7 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   _fetchPrefs() async {
+    // todo fetch theme
     try {
       final prefs = await SharedPreferences.getInstance();
 
@@ -56,6 +59,13 @@ class _SplashPageState extends State<SplashPage> {
           displayedEstablishments = displayedEstablishmentsPrefs;
         });
       }
+
+      // String? appThemeKey = prefs.getString(SharedPreferencesKey.AppTheme);
+      // ThemeData? appTheme = appThemesMap[appThemeKey];
+      // print('appThemeKey: ' + appThemeKey.toString());
+      // if (appTheme != null) {
+      //   currentTheme.toggleTheme(appTheme);
+      // }
 
       Navigator.push(
           context,
