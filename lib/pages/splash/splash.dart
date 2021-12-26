@@ -60,12 +60,11 @@ class _SplashPageState extends State<SplashPage> {
         });
       }
 
-      // String? appThemeKey = prefs.getString(SharedPreferencesKey.AppTheme);
-      // ThemeData? appTheme = appThemesMap[appThemeKey];
-      // print('appThemeKey: ' + appThemeKey.toString());
-      // if (appTheme != null) {
-      //   currentTheme.toggleTheme(appTheme);
-      // }
+      String? appThemeKey = prefs.getString(SharedPreferencesKey.AppTheme);
+      ThemeData? appTheme = appThemesMap[appThemeKey];
+      if (appTheme != null) {
+        currentTheme.toggleTheme(appTheme);
+      }
 
       Navigator.push(
           context,

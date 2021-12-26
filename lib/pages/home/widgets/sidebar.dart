@@ -197,6 +197,6 @@ Future<void> _setTheme(String themeKey) async {
 
   currentTheme.toggleTheme(themeData);
 
-  // final prefs = await SharedPreferences.getInstance();
-  // prefs.setString(SharedPreferencesKey.AppTheme, themeKey);
+  final prefs = await SharedPreferences.getInstance();
+  prefs.setString(SharedPreferencesKey.AppTheme, themeKey);
 }
