@@ -57,8 +57,9 @@ class _HomeSidebarWidgetState extends State<HomeSidebarWidget> {
             ),
           ];
         },
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+        body: ListView(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
           children: [
             ListTile(
               title: Text('Zobrazené reštaurácie'),

@@ -12,7 +12,12 @@ class StarsEstimation extends StatelessWidget {
       child: Row(
         children: [
           Row(children: _starsForRating(rating)),
-          if (userRatingsTotal != null) Text('($userRatingsTotal)'),
+          if (userRatingsTotal != null)
+            Text(
+              '($userRatingsTotal)',
+              softWrap: false,
+              overflow: TextOverflow.fade,
+            ),
         ],
       ),
     );
@@ -29,17 +34,17 @@ class StarsEstimation extends StatelessWidget {
       if (ratingWithHalf && halfStarIteration) {
         stars.add(Icon(
           Icons.star_half,
-          size: 20.0,
+          size: 15.0,
         ));
       } else if (i < roundedToHalfRating) {
         stars.add(Icon(
           Icons.star,
-          size: 20.0,
+          size: 15.0,
         ));
       } else {
         stars.add(Icon(
           Icons.star_border,
-          size: 20.0,
+          size: 15.0,
         ));
       }
     }

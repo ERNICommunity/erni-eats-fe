@@ -44,8 +44,8 @@ class EstablishmentSummaryWidget extends StatelessWidget {
           Uint8List logo = snapshot.data;
           Image logoImage = Image.memory(logo);
           return Container(
-            height: 80,
-            width: 80,
+            height: 50,
+            width: 50,
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.fitHeight,
