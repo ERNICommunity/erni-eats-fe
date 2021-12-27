@@ -3,6 +3,7 @@ const String APP_TITLE_SHORT = '11';
 
 class SharedPreferencesKey {
   static const DisplayedEstablishments = 'displayed_establishments';
+  static const AppTheme = 'app_theme';
 }
 
 class HomePagePassedParameters {

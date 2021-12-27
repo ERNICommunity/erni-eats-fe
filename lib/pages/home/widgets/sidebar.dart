@@ -2,6 +2,8 @@ import 'package:erni_eats_fe/data/data.dart';
 import 'package:erni_eats_fe/pages/donate/donate.dart';
 import 'package:erni_eats_fe/pages/github-links/github-links.dart';
 import 'package:erni_eats_fe/service/http-service.dart';
+import 'package:erni_eats_fe/theme/app-theme.dart';
+import 'package:erni_eats_fe/theme/config.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -55,8 +57,9 @@ class _HomeSidebarWidgetState extends State<HomeSidebarWidget> {
             ),
           ];
         },
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+        body: ListView(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
           children: [
             ListTile(
               title: Text('Zobrazené reštaurácie'),
@@ -86,21 +89,46 @@ class _HomeSidebarWidgetState extends State<HomeSidebarWidget> {
             ListView(
               children: <Widget>[
                 ListTile(
-                  leading: Icon(Icons.favorite, color: Colors.black54),
+                  leading: Icon(
+                      Icons.favorite,
+                  ),
                   title: Text('Kúpte nám kávu'),
                   onTap: () => _navigateToDonatePage(context, 'Kúpte nám kávu'),
                 ),
                 ListTile(
-                  leading: Icon(Icons.message, color: Colors.black54),
+                  leading: Icon(
+                      Icons.message,
+                  ),
                   title: Text('Spätná väzba'),
                   onTap: () {
                     // todo feedback page
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.code, color: Colors.black54),
+                  leading: Icon(
+                      Icons.code,
+                  ),
                   title: Text('Link na GitHub'),
                   onTap: () => _navigateToGitHubLinksPage(context),
+                ),
+                ListTile(
+                  leading: Icon(
+                      Icons.format_paint_outlined,
+                  ),
+                  title: Text('Paint it white'),
+                  onTap: () => _setTheme('light'),
+                ),
+                ListTile(
+                  leading: Icon(
+                      Icons.format_paint,
+                  ),
+                  title: Text('Paint it black'),
+                  onTap: () => _setTheme('dark'),
+                ),
+                ListTile(
+                  leading: Column(), // todo icon
+                  title: Text('Paint it erni'),
+                  onTap: () => _setTheme('erni'),
                 ),
               ],
               scrollDirection: Axis.vertical,
@@ -123,7 +151,6 @@ class _HomeSidebarWidgetState extends State<HomeSidebarWidget> {
         return CheckboxListTile(
           title: Text(establishment.name),
           value: checked,
-          activeColor: Colors.black54,
           onChanged: (bool? value) async =>
               _onCheckboxChange(checked, establishment.id),
           controlAffinity: ListTileControlAffinity.leading,
@@ -163,4 +190,13 @@ void _navigateToDonatePage(context, title) {
     context,
     MaterialPageRoute(builder: (context) => DonateRoute()),
   );
+}
+
+Future<void> _setTheme(String themeKey) async {
+  ThemeData themeData = appThemesMap[themeKey] ?? AppTheme.lightTheme;
+
+  currentTheme.toggleTheme(themeData);
+
+  final prefs = await SharedPreferences.getInstance();
+  prefs.setString(SharedPreferencesKey.AppTheme, themeKey);
 }

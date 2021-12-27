@@ -40,7 +40,13 @@ Widget _getAddressWidget(String address) {
     children: [
       Icon(Icons.location_on),
       Padding(padding: EdgeInsets.only(right: 16)),
-      Text(address),
+      Flexible(
+        child: Text(
+          address,
+          softWrap: true,
+          overflow: TextOverflow.visible,
+        ),
+      ),
     ],
   );
 }
