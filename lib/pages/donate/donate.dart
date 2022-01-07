@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class DonateRoute extends StatelessWidget {
+
+  final String _title = 'Kúpte nám kávu';
+
   @override
   Widget build(BuildContext context) {
-    String _title = 'Kúpte nám kávu';
     List<Iban> ibans = [
       Iban(name: 'Toma', iban: 'SK36 1100 0000 0029 3106 7480'),
       Iban(name: 'Peťo', iban: 'SK98 5600 0000 0055 3991 8002'),

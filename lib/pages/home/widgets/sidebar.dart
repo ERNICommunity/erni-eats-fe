@@ -1,5 +1,6 @@
 import 'package:erni_eats_fe/data/data.dart';
 import 'package:erni_eats_fe/pages/donate/donate.dart';
+import 'package:erni_eats_fe/pages/feedback/feedback.dart';
 import 'package:erni_eats_fe/pages/github-links/github-links.dart';
 import 'package:erni_eats_fe/service/http-service.dart';
 import 'package:erni_eats_fe/theme/app-theme.dart';
@@ -93,16 +94,14 @@ class _HomeSidebarWidgetState extends State<HomeSidebarWidget> {
                       Icons.favorite,
                   ),
                   title: Text('Kúpte nám kávu'),
-                  onTap: () => _navigateToDonatePage(context, 'Kúpte nám kávu'),
+                  onTap: () => _navigateToDonatePage(context),
                 ),
                 ListTile(
                   leading: Icon(
                       Icons.message,
                   ),
                   title: Text('Spätná väzba'),
-                  onTap: () {
-                    // todo feedback page
-                  },
+                  onTap: () => _navigateToFeedbackPage(context),
                 ),
                 ListTile(
                   leading: Icon(
@@ -185,10 +184,17 @@ void _navigateToGitHubLinksPage(context) {
   );
 }
 
-void _navigateToDonatePage(context, title) {
+void _navigateToDonatePage(context) {
   Navigator.push(
     context,
     MaterialPageRoute(builder: (context) => DonateRoute()),
+  );
+}
+
+void _navigateToFeedbackPage(context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => FeedbackRoute()),
   );
 }
 
