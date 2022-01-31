@@ -77,6 +77,7 @@ class FeedbackFormState extends State<FeedbackForm> {
             keyboardType: TextInputType.text,
             minLines: 5,
             maxLines: 100,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Povinná položka formuláru';
