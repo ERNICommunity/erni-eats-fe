@@ -1,6 +1,5 @@
 import 'package:erni_eats_fe/data/data.dart';
 import 'package:erni_eats_fe/utils/launch-url.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FeedbackRoute extends StatelessWidget {
@@ -47,44 +46,9 @@ class FeedbackFormState extends State<FeedbackForm> {
       key: _formKey,
       child: Column(
         children: <Widget>[
-          TextFormField(
-            controller: name,
-            decoration: const InputDecoration(
-              hintText: 'Meno',
-            ),
-            keyboardType: TextInputType.name,
-          ),
-          TextFormField(
-            controller: email,
-            decoration: const InputDecoration(
-              hintText: 'Email',
-            ),
-            keyboardType: TextInputType.emailAddress,
-            validator: (value) {
-              RegExp emailRegExp = RegExp(
-                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-              if (value == null || value == '' || emailRegExp.hasMatch(value)) {
-                return null;
-              }
-              return 'Nesprávny formát email adresy';
-            },
-          ),
-          TextFormField(
-            controller: feedback,
-            decoration: const InputDecoration(
-              hintText: 'Spätná väzba *',
-            ),
-            keyboardType: TextInputType.text,
-            minLines: 5,
-            maxLines: 100,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Povinná položka formuláru';
-              }
-              return null;
-            },
-          ),
+          NameFormField(name: name),
+          EmailFormField(email: email),
+          FeedbackFormField(feedback: feedback),
           Container(
             child: ElevatedButton(
               onPressed: () {
@@ -114,15 +78,92 @@ class FeedbackFormState extends State<FeedbackForm> {
         '$optionalLine'
         '$feedbackText';
 
-    clearTheForm();
+    _clearTheFormFields();
     launchURL('mailto:$FeedbackEmail?'
         'subject=$emailSubject&'
         'body=$formattedBody');
   }
 
-  clearTheForm() {
+  _clearTheFormFields() {
     name.clear();
     email.clear();
     feedback.clear();
+  }
+}
+
+class FeedbackFormField extends StatelessWidget {
+  const FeedbackFormField({
+    Key? key,
+    required this.feedback,
+  }) : super(key: key);
+
+  final TextEditingController feedback;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: feedback,
+      decoration: const InputDecoration(
+        hintText: 'Spätná väzba *',
+      ),
+      keyboardType: TextInputType.text,
+      minLines: 5,
+      maxLines: 100,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Povinná položka formuláru';
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class EmailFormField extends StatelessWidget {
+  const EmailFormField({
+    Key? key,
+    required this.email,
+  }) : super(key: key);
+
+  final TextEditingController email;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: email,
+      decoration: const InputDecoration(
+        hintText: 'Email',
+      ),
+      keyboardType: TextInputType.emailAddress,
+      validator: (value) {
+        RegExp emailRegExp = RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+        if (value == null || value == '' || emailRegExp.hasMatch(value)) {
+          return null;
+        }
+        return 'Nesprávny formát email adresy';
+      },
+    );
+  }
+}
+
+class NameFormField extends StatelessWidget {
+  const NameFormField({
+    Key? key,
+    required this.name,
+  }) : super(key: key);
+
+  final TextEditingController name;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: name,
+      decoration: const InputDecoration(
+        hintText: 'Meno',
+      ),
+      keyboardType: TextInputType.name,
+    );
   }
 }
