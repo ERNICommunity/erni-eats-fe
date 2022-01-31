@@ -1,5 +1,6 @@
 import 'package:erni_eats_fe/data/data.dart';
 import 'package:erni_eats_fe/utils/launch-url.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FeedbackRoute extends StatelessWidget {
@@ -83,24 +84,24 @@ class FeedbackFormState extends State<FeedbackForm> {
               return null;
             },
           ),
-          Row(
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    createEmail();
-                  }
-                },
-                child: const Text('Odoslať'),
-              ),
-            ],
+          Container(
+            child: ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  _createEmail();
+                }
+              },
+              child: const Text('Odoslať'),
+            ),
+            padding: EdgeInsets.symmetric(vertical: 8.0),
+            alignment: Alignment.centerLeft,
           ),
         ],
       ),
     );
   }
 
-  createEmail() {
+  _createEmail() {
     final String emailSubject = 'Eat11 Feedback';
     String nameText = name.text == '' ? '' : 'Name: ${name.text}%0D';
     String emailText = email.text == '' ? '' : 'Email: ${email.text}%0D';
