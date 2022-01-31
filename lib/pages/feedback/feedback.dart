@@ -115,15 +115,14 @@ class FeedbackFormState extends State<FeedbackForm> {
         '$feedbackText';
 
     clearTheForm();
-
     launchURL('mailto:$FeedbackEmail?'
         'subject=$emailSubject&'
         'body=$formattedBody');
   }
 
   clearTheForm() {
-    name.text = '';
-    email.text = '';
-    feedback.text = '';
+    name.clear();
+    email.clear();
+    feedback.clear();
   }
 }
