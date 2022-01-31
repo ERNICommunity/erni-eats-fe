@@ -1,3 +1,5 @@
+import 'package:erni_eats_fe/data/data.dart';
+import 'package:erni_eats_fe/utils/launch-url.dart';
 import 'package:flutter/material.dart';
 
 class FeedbackRoute extends StatelessWidget {
@@ -58,11 +60,12 @@ class FeedbackFormState extends State<FeedbackForm> {
             ),
             keyboardType: TextInputType.emailAddress,
             validator: (value) {
-              RegExp emailRegExp = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-              if (value != null && !emailRegExp.hasMatch(value)) {
-                return 'Nesprávny formát email adresy';
+              RegExp emailRegExp = RegExp(
+                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+              if (value == null || value == '' || emailRegExp.hasMatch(value)) {
+                return null;
               }
-              return null;
+              return 'Nesprávny formát email adresy';
             },
           ),
           TextFormField(
@@ -70,7 +73,7 @@ class FeedbackFormState extends State<FeedbackForm> {
             decoration: const InputDecoration(
               hintText: 'Spätná väzba *',
             ),
-            keyboardType: TextInputType.multiline,
+            keyboardType: TextInputType.text,
             minLines: 5,
             maxLines: 100,
             validator: (value) {
@@ -80,21 +83,12 @@ class FeedbackFormState extends State<FeedbackForm> {
               return null;
             },
           ),
-          // todo attach file
           Row(
             children: [
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    print(name.text);
-                    print(email.text);
-                    print(feedback.text);
-                    name.text = '';
-                    email.text = '';
-                    feedback.text = '';
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Spätná väzba odoslaná!')),
-                    );
+                    createEmail();
                   }
                 },
                 child: const Text('Odoslať'),
@@ -104,5 +98,30 @@ class FeedbackFormState extends State<FeedbackForm> {
         ],
       ),
     );
+  }
+
+  createEmail() {
+    final String emailSubject = 'Eat11 Feedback';
+    String nameText = name.text == '' ? '' : 'Name: ${name.text}%0D';
+    String emailText = email.text == '' ? '' : 'Email: ${email.text}%0D';
+    String optionalLine = (name.text == '' && email.text == '') ? '' : '%0D';
+    String feedbackText = 'Feedback:%0D${feedback.text}';
+
+    var formattedBody = '$nameText'
+        '$emailText'
+        '$optionalLine'
+        '$feedbackText';
+
+    clearTheForm();
+
+    launchURL('mailto:$FeedbackEmail?'
+        'subject=$emailSubject&'
+        'body=$formattedBody');
+  }
+
+  clearTheForm() {
+    name.text = '';
+    email.text = '';
+    feedback.text = '';
   }
 }
