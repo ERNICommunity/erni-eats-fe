@@ -10,6 +10,7 @@ class DonateRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Iban> ibans = [
       Iban(name: 'Toma', iban: 'SK36 1100 0000 0029 3106 7480'),
+      Iban(name: 'Matej', iban: 'SK35 0900 0000 0050 4535 7858'),
       Iban(name: 'Peťo', iban: 'SK98 5600 0000 0055 3991 8002'),
     ];
 
