@@ -2,9 +2,10 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:erni_eats_fe/data/data.dart';
+import 'package:erni_eats_fe/data/environment-variables.dart';
 import 'package:http/http.dart' as http;
 
-String baseUrl = 'https://eat11.azurewebsites.net/api/v1/establishments';
+String baseUrl = EnvironmentVariables.EstablishmentsBaseUrl;
 
 // GET /
 Future<List<Establishment>> getAllEstablishments() async {

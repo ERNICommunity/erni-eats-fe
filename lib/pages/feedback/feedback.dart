@@ -1,4 +1,4 @@
-import 'package:erni_eats_fe/data/data.dart';
+import 'package:erni_eats_fe/data/environment-variables.dart';
 import 'package:erni_eats_fe/utils/launch-url.dart';
 import 'package:flutter/material.dart';
 
@@ -79,7 +79,7 @@ class FeedbackFormState extends State<FeedbackForm> {
         '$feedbackText';
 
     _clearTheFormFields();
-    launchURL('mailto:$FeedbackEmail?'
+    launchURL('mailto:${EnvironmentVariables.FeedbackEmail}?'
         'subject=$emailSubject&'
         'body=$formattedBody');
   }

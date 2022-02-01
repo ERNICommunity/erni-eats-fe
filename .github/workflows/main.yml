@@ -18,6 +18,9 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'dev'
+      - env:
+          ESTABLISHMENTS_BASE_URL: ${{ secrets.ESTABLISHMENTS_BASE_URL }}
+          FEEDBACK_EMAIL: ${{ secrets.FEEDBACK_EMAIL }}
       - run: flutter pub get
       - run: flutter build web --release
       - run: |

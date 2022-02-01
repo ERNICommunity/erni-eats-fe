@@ -1,8 +1,6 @@
 const String APP_TITLE = 'eat11';
 const String APP_TITLE_SHORT = '11';
 
-const String FeedbackEmail = 'eat.11.feedback@gmail.com';
-
 class SharedPreferencesKey {
   static const DisplayedEstablishments = 'displayed_establishments';
   static const AppTheme = 'app_theme';
