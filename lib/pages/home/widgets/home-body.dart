@@ -1,10 +1,10 @@
 import 'package:erni_eats_fe/data/data.dart';
 import 'package:erni_eats_fe/pages/establishment/establishment.dart';
-import 'package:erni_eats_fe/pages/home/widgets/daily-menu.dart';
+import 'package:erni_eats_fe/shared/widgets/daily-menu.dart';
+import 'package:erni_eats_fe/shared/widgets/establishment-summary.dart';
 import 'package:erni_eats_fe/service/http-service.dart';
 import 'package:flutter/material.dart';
-
-import 'establishment-summary.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeBodyWidget extends StatefulWidget {
   final HomePagePassedParameters passedParameters;
@@ -50,7 +50,8 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget> {
           );
         }
         return Center(
-          child: Text("Bohužiaľ, sa nepodarilo načítať reštaurácie."),
+          child: Text(AppLocalizations.of(context)!
+              .establishment_NoEstablishments_Error),
         );
       },
     );
@@ -65,7 +66,8 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget> {
           SizedBox(
             width: double.infinity,
             child: TextButton(
-              child: Text('Zistiť viac'),
+              child:
+                  Text(AppLocalizations.of(context)!.homePage_LearnMore_Button),
               onPressed: () =>
                   _navigateToEstablishmentPage(context, establishment),
               style: TextButton.styleFrom(

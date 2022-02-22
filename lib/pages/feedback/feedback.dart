@@ -1,12 +1,13 @@
 import 'package:erni_eats_fe/data/data.dart';
 import 'package:erni_eats_fe/utils/launch-url.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FeedbackRoute extends StatelessWidget {
-  final String _title = 'Spätná väzba';
-
   @override
   Widget build(BuildContext context) {
+    final String _title = AppLocalizations.of(context)!.feedbackPage_Title;
+
     return Scaffold(
       appBar: AppBar(title: Text(_title)),
       body: Container(
@@ -56,7 +57,8 @@ class FeedbackFormState extends State<FeedbackForm> {
                   _createEmail();
                 }
               },
-              child: const Text('Odoslať'),
+              child:
+                  Text(AppLocalizations.of(context)!.feedbackPage_Send_Button),
             ),
             padding: EdgeInsets.symmetric(vertical: 8.0),
             alignment: Alignment.centerLeft,
@@ -103,8 +105,9 @@ class FeedbackFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: feedback,
-      decoration: const InputDecoration(
-        hintText: 'Spätná väzba *',
+      decoration: InputDecoration(
+        hintText:
+            '${AppLocalizations.of(context)!.feedbackPage_Feedback_FormField} *',
       ),
       keyboardType: TextInputType.text,
       minLines: 5,
@@ -112,7 +115,7 @@ class FeedbackFormField extends StatelessWidget {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Povinná položka formuláru';
+          return AppLocalizations.of(context)!.warning_Required_FormField;
         }
         return null;
       },
@@ -132,8 +135,8 @@ class EmailFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: email,
-      decoration: const InputDecoration(
-        hintText: 'Email',
+      decoration: InputDecoration(
+        hintText: AppLocalizations.of(context)!.feedbackPage_Email_Hint,
       ),
       keyboardType: TextInputType.emailAddress,
       validator: (value) {
@@ -142,7 +145,7 @@ class EmailFormField extends StatelessWidget {
         if (value == null || value == '' || emailRegExp.hasMatch(value)) {
           return null;
         }
-        return 'Nesprávny formát email adresy';
+        return AppLocalizations.of(context)!.warning_InvalidEmail_FormField;
       },
     );
   }
@@ -160,8 +163,8 @@ class NameFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: name,
-      decoration: const InputDecoration(
-        hintText: 'Meno',
+      decoration: InputDecoration(
+        hintText: AppLocalizations.of(context)!.feedbackPage_Name_Hint,
       ),
       keyboardType: TextInputType.name,
     );

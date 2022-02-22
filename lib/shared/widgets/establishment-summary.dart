@@ -1,9 +1,10 @@
 import 'dart:typed_data';
 
 import 'package:erni_eats_fe/data/data.dart';
-import 'package:erni_eats_fe/pages/home/widgets/stars-estimation.dart';
+import 'package:erni_eats_fe/shared/widgets/stars-estimation.dart';
 import 'package:erni_eats_fe/service/http-service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EstablishmentSummaryWidget extends StatelessWidget {
   final Establishment establishment;
@@ -24,7 +25,7 @@ class EstablishmentSummaryWidget extends StatelessWidget {
               : Column(),
           StarsEstimation(establishment.rating, establishment.userRatingsTotal),
           Text(
-            '${_getPriceLevel(establishment.priceLevel)}${_getEstablishmentType(establishment.type)}',
+            '${_getPriceLevel(establishment.priceLevel)}${_getEstablishmentType(context, establishment.type)}',
           ),
         ],
       ),
@@ -92,12 +93,12 @@ class EstablishmentSummaryWidget extends StatelessWidget {
     return '${'€' * multiply} • ';
   }
 
-  String _getEstablishmentType(_type) {
+  String _getEstablishmentType(BuildContext context, _type) {
     if (_type == EstablishmentType.Restaurant) {
-      return 'Reštaurácia';
+      return AppLocalizations.of(context)!.establishment_Restaurant_Type;
     }
     if (_type == EstablishmentType.Pub) {
-      return 'Pohostinstvo';
+      return AppLocalizations.of(context)!.establishment_Pub_Type;
     }
     return '';
   }

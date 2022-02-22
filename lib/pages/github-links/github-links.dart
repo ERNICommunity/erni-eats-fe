@@ -1,10 +1,11 @@
 import 'package:erni_eats_fe/utils/launch-url.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GithubLinksRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    String _title = 'Linky na GitHub';
+    String _title = AppLocalizations.of(context)!.gitHubLinkPage_Title;
     String _frontendUrl = 'https://github.com/ERNICommunity/erni-eats-fe';
     String _backendUrl = 'https://github.com/ERNICommunity/erni-eats-be';
 
@@ -18,14 +19,16 @@ class GithubLinksRoute extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
-              child: Text('GitHub repozitáre projektu:'),
+              child: Text(AppLocalizations.of(context)!.gitHubLinkPage_Header),
             ),
             TextButton(
-              child: const Text('Frontend aplikácia'),
+              child: Text(AppLocalizations.of(context)!
+                  .gitHubLinkPage_FrontendRepository_Label),
               onPressed: () => launchURL(_frontendUrl),
             ),
             TextButton(
-              child: const Text('Backend aplikácia'),
+              child: Text(AppLocalizations.of(context)!
+                  .gitHubLinkPage_BackendRepository_Label),
               onPressed: () => launchURL(_backendUrl),
             ),
           ],

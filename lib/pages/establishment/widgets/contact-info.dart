@@ -10,7 +10,8 @@ class ContactInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     ContactInfo? contactInfo = this.establishment.contactInfo;
     if (contactInfo == null) {
-      return Text('Nemáme informácie o adrese a otváracích hodinách.');
+      return Text(
+          AppLocalizations.of(context)!.contactInfoSection_NoContactInfo);
     }
     return Card(
       child: Column(
@@ -20,9 +21,9 @@ class ContactInfoWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: Column(
               children: [
-                _getAddressWidget(contactInfo.address),
+                _getAddressWidget(context, contactInfo.address),
                 Padding(padding: EdgeInsets.only(bottom: 8)),
-                _getOpenHoursWidget(contactInfo.openHours),
+                _getOpenHoursWidget(context, contactInfo.openHours),
               ],
             ),
           ),
@@ -32,9 +33,9 @@ class ContactInfoWidget extends StatelessWidget {
   }
 }
 
-Widget _getAddressWidget(String address) {
+Widget _getAddressWidget(BuildContext context, String address) {
   if (address == '') {
-    return Text('Nemáme informácie o adrese.');
+    return Text(AppLocalizations.of(context)!.contactInfoSection_NoAddress);
   }
   return Row(
     children: [
@@ -51,9 +52,9 @@ Widget _getAddressWidget(String address) {
   );
 }
 
-Widget _getOpenHoursWidget(List<OpenHours> openHours) {
+Widget _getOpenHoursWidget(BuildContext context, List<OpenHours> openHours) {
   if (openHours.isEmpty) {
-    return Text('Nemáme informácie o otváracích hodinách.');
+    return Text(AppLocalizations.of(context)!.contactInfoSection_NoOpenHours);
   }
   return Column(
     children: [
@@ -61,7 +62,8 @@ Widget _getOpenHoursWidget(List<OpenHours> openHours) {
         children: [
           Icon(Icons.access_time),
           Padding(padding: EdgeInsets.only(right: 16)),
-          Text('Otvorené:'),
+          Text(
+              '${AppLocalizations.of(context)!.contactInfoSection_Open_Label}:'),
         ],
       ),
       Padding(

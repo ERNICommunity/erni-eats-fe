@@ -1,0 +1,52 @@
+{
+  "contactInfoSection_NoContactInfo": "Nemáme informácie o adrese a otváracích hodinách.",
+  "contactInfoSection_NoOpenHours": "Nemáme informácie o otváracích hodinách.",
+  "contactInfoSection_NoAddress": "Nemáme informácie o adrese.",
+  "contactInfoSection_Open_Label": "Otvorené",
+
+  "dailyMenuSection_Soups_ListTitle": "Polievky",
+  "dailyMenuSection_MainDishes_ListTitle": "Hlavné jedla",
+  "dailyMenuSection_NoDishes_Text": "Nie sú stravy z danej kategórie.",
+  "dailyMenuSection_NoLunchMenu_Text": "Nepodarilo sa nájsť menu.",
+
+  "donatePage_Title": "Kúpte nám kávu",
+
+  "establishment_EstablishmentWeb_Button": "Stránka podniku",
+  "establishment_LunchMenuWeb_Button": "Denné menu na stránke podniku",
+  "establishment_Restaurant_Type": "Reštaurácia",
+  "establishment_Pub_Type": "Pohostinstvo",
+  "establishment_NoEstablishments_Error": "Bohužiaľ, sa nepodarilo načítať reštaurácie.",
+
+  "establishmentPage_Title": "Detail podniku",
+  "establishmentPage_LunchMenuSection_Title": "Denné obedové menu",
+  "establishmentPage_FeedbackSection_Title": "Recenzie",
+  "establishmentPage_ContactSection_Title": "Kontakt",
+
+  "feedbackPage_Title": "Spätná väzba",
+  "feedbackPage_Send_Button": "Odoslať",
+  "feedbackPage_Feedback_FormField": "Spätná väzba",
+  "feedbackPage_Name_Hint": "Meno",
+  "feedbackPage_Email_Hint": "Email",
+
+  "gitHubLinkPage_Title": "Link na GitHub",
+  "gitHubLinkPage_Header": "GitHub repozitáre projektu:",
+  "gitHubLinkPage_FrontendRepository_Label": "Frontend aplikácia",
+  "gitHubLinkPage_BackendRepository_Label": "Backend aplikácia",
+
+  "homePage_LearnMore_Button": "Zistiť viac",
+
+  "reviewsSection_NoReviews": "Zatiaľ nie sú žiadne recenzie.",
+  "reviewsSection_Anonymously_Text": "Anonymne",
+  "reviewsSection_NoReviews_Error": "Bohužiaľ, sa nepodarilo načítať recenzie.",
+
+  "sidebar_Title": "Nastavenia",
+  "sidebar_DisplayedRestaurants_ListTitle": "Zobrazené reštaurácie",
+  "sidebar_FurtherOptions_ListTitle": "Ďalšie možnosti",
+  "sidebar_ThemeSwitch_WhiteThemeOption": "Paint it white",
+  "sidebar_ThemeSwitch_BlackThemeOption": "Paint it black",
+  "sidebar_ThemeSwitch_ErniThemeOption": "Paint it erni",
+
+  "warning_Required_FormField": "Povinná položka formuláru",
+  "warning_InvalidEmail_FormField": "Nesprávny formát email adresy",
+  "error_NoDataLoaded": "'Bohužiaľ, sa nepodarilo načítať dáta.'"
+}

@@ -1,6 +1,7 @@
 import 'package:erni_eats_fe/pages/splash/splash.dart';
 import 'package:erni_eats_fe/theme/config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'data/data.dart';
 
@@ -9,7 +10,6 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -29,6 +29,8 @@ class _MyAppState extends State {
       title: APP_TITLE,
       theme: currentTheme.currentTheme,
       home: SplashPage(),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }

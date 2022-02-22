@@ -1,21 +1,21 @@
 import 'package:erni_eats_fe/data/data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DonateRoute extends StatelessWidget {
-
-  final String _title = 'Kúpte nám kávu';
-
   @override
   Widget build(BuildContext context) {
-    List<Iban> ibans = [
+    final String title = AppLocalizations.of(context)!.donatePage_Title;
+
+    final List<Iban> ibans = [
       Iban(name: 'Toma', iban: 'SK36 1100 0000 0029 3106 7480'),
       Iban(name: 'Matej', iban: 'SK35 0900 0000 0050 4535 7858'),
       Iban(name: 'Peťo', iban: 'SK98 5600 0000 0055 3991 8002'),
     ];
 
     return Scaffold(
-      appBar: AppBar(title: Text(_title)),
+      appBar: AppBar(title: Text(title)),
       body: Container(
         padding: EdgeInsets.all(16.0),
         child: Column(

@@ -5,6 +5,7 @@ import 'package:erni_eats_fe/theme/app-theme.dart';
 import 'package:erni_eats_fe/theme/config.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -30,12 +31,11 @@ class _SplashPageState extends State<SplashPage> {
             child: Container(
               height: 80,
               width: 80,
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle
-                // image: DecorationImage(
-                //   image: Image.asset('splash-image-square.png').image,
-                // ),
-              ),
+              decoration: BoxDecoration(shape: BoxShape.rectangle
+                  // image: DecorationImage(
+                  //   image: Image.asset('splash-image-square.png').image,
+                  // ),
+                  ),
             ),
           );
   }
@@ -86,8 +86,8 @@ class _SplashPageState extends State<SplashPage> {
           // title: const Text('AlertDialog Title'),
           content: SingleChildScrollView(
             child: ListBody(
-              children: const <Widget>[
-                Text('Bohužiaľ, sa nepodarilo načítať dáta.'),
+              children: <Widget>[
+                Text(AppLocalizations.of(context)!.error_NoDataLoaded),
               ],
             ),
           ),

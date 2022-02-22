@@ -7,6 +7,7 @@ import 'package:erni_eats_fe/theme/app-theme.dart';
 import 'package:erni_eats_fe/theme/config.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeSidebarWidget extends StatefulWidget {
   final BuildContext context;
@@ -54,7 +55,7 @@ class _HomeSidebarWidgetState extends State<HomeSidebarWidget> {
                 },
               ),
               pinned: true,
-              title: new Text('Nastavenia'),
+              title: new Text(AppLocalizations.of(context)!.sidebar_Title),
             ),
           ];
         },
@@ -63,7 +64,8 @@ class _HomeSidebarWidgetState extends State<HomeSidebarWidget> {
           shrinkWrap: true,
           children: [
             ListTile(
-              title: Text('Zobrazené reštaurácie'),
+              title: Text(AppLocalizations.of(context)!
+                  .sidebar_DisplayedRestaurants_ListTitle),
             ),
             FutureBuilder(
               future: getAllEstablishments(),
@@ -80,53 +82,60 @@ class _HomeSidebarWidgetState extends State<HomeSidebarWidget> {
                   return _getEstablishmentsListWidget(snapshot);
                 }
                 return Center(
-                  child: Text("Bohužiaľ, sa nepodarilo načítať reštaurácie."),
+                  child: Text(AppLocalizations.of(context)!
+                      .establishment_NoEstablishments_Error),
                 );
               },
             ),
             ListTile(
-              title: Text('Ďalšie možnosti'),
+              title: Text(AppLocalizations.of(context)!
+                  .sidebar_FurtherOptions_ListTitle),
             ),
             ListView(
               children: <Widget>[
                 ListTile(
                   leading: Icon(
-                      Icons.favorite,
+                    Icons.favorite,
                   ),
-                  title: Text('Kúpte nám kávu'),
+                  title: Text(AppLocalizations.of(context)!.donatePage_Title),
                   onTap: () => _navigateToDonatePage(context),
                 ),
                 ListTile(
                   leading: Icon(
-                      Icons.message,
+                    Icons.message,
                   ),
-                  title: Text('Spätná väzba'),
+                  title: Text(AppLocalizations.of(context)!.feedbackPage_Title),
                   onTap: () => _navigateToFeedbackPage(context),
                 ),
                 ListTile(
                   leading: Icon(
-                      Icons.code,
+                    Icons.code,
                   ),
-                  title: Text('Link na GitHub'),
+                  title:
+                      Text(AppLocalizations.of(context)!.gitHubLinkPage_Title),
                   onTap: () => _navigateToGitHubLinksPage(context),
                 ),
+                // TODO separate group with Theme title
                 ListTile(
                   leading: Icon(
-                      Icons.format_paint_outlined,
+                    Icons.format_paint_outlined,
                   ),
-                  title: Text('Paint it white'),
+                  title: Text(AppLocalizations.of(context)!
+                      .sidebar_ThemeSwitch_WhiteThemeOption),
                   onTap: () => _setTheme('light'),
                 ),
                 ListTile(
                   leading: Icon(
-                      Icons.format_paint,
+                    Icons.format_paint,
                   ),
-                  title: Text('Paint it black'),
+                  title: Text(AppLocalizations.of(context)!
+                      .sidebar_ThemeSwitch_BlackThemeOption),
                   onTap: () => _setTheme('dark'),
                 ),
                 ListTile(
                   leading: Column(), // todo icon
-                  title: Text('Paint it erni'),
+                  title: Text(AppLocalizations.of(context)!
+                      .sidebar_ThemeSwitch_ErniThemeOption),
                   onTap: () => _setTheme('erni'),
                 ),
               ],
@@ -199,6 +208,7 @@ void _navigateToFeedbackPage(context) {
 }
 
 Future<void> _setTheme(String themeKey) async {
+  // TODO pass constant theme key
   ThemeData themeData = appThemesMap[themeKey] ?? AppTheme.lightTheme;
 
   currentTheme.toggleTheme(themeData);

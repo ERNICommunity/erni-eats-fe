@@ -1,7 +1,8 @@
 import 'package:erni_eats_fe/data/data.dart';
-import 'package:erni_eats_fe/pages/home/widgets/stars-estimation.dart';
+import 'package:erni_eats_fe/shared/widgets/stars-estimation.dart';
 import 'package:erni_eats_fe/service/http-service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ReviewsWidget extends StatelessWidget {
   final Establishment establishment;
@@ -36,7 +37,8 @@ class ReviewsWidget extends StatelessWidget {
                     if (review.authorName != null)
                       Text(review.authorName!)
                     else
-                      Text('(Anonymously)'),
+                      Text(
+                          '(${AppLocalizations.of(context)!.reviewsSection_Anonymously_Text})'),
                   ],
                 ),
               );
@@ -47,9 +49,10 @@ class ReviewsWidget extends StatelessWidget {
         }
         if (snapshot.connectionState == ConnectionState.done &&
             snapshot.data.length == 0) {
-          return Text('Zatiaľ nie sú žiadne recenzie.');
+          return Text(AppLocalizations.of(context)!.reviewsSection_NoReviews);
         }
-        return Text('Bohužiaľ, sa nepodarilo načítať recenzie.');
+        return Text(
+            AppLocalizations.of(context)!.reviewsSection_NoReviews_Error);
       },
     );
   }

@@ -2,6 +2,7 @@ import 'package:erni_eats_fe/data/data.dart';
 import 'package:erni_eats_fe/service/util-service.dart';
 import 'package:erni_eats_fe/utils/launch-url.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DailyMenuWidget extends StatefulWidget {
   final BuildContext context;
@@ -98,22 +99,30 @@ class ReRunnableFutureBuilder extends StatelessWidget {
           );
         }
         if (snapshot.hasError) {
-          return _getNotFoundWidget(establishment);
+          return _getNotFoundWidget(context, establishment);
         }
         List<DailyMenu> soups = snapshot.data[DailyMenuItemType.Soup];
         List<DailyMenu> mainDish = snapshot.data[DailyMenuItemType.MainDish];
         if (soups.isEmpty && mainDish.isEmpty) {
-          return _getNotFoundWidget(establishment);
+          return _getNotFoundWidget(context, establishment);
         }
         return Padding(
           child: ListView(
             children: [
-              _getDailyMenuWidget(context, soups, 'Polievky'),
+              _getDailyMenuWidget(
+                  context,
+                  soups,
+                  AppLocalizations.of(context)!
+                      .dailyMenuSection_Soups_ListTitle),
               Padding(
                 padding: EdgeInsets.only(bottom: 8),
                 child: Divider(),
               ),
-              _getDailyMenuWidget(context, mainDish, 'Hlavné jedla'),
+              _getDailyMenuWidget(
+                  context,
+                  mainDish,
+                  AppLocalizations.of(context)!
+                      .dailyMenuSection_MainDishes_ListTitle),
               // todo handle weekends
               // todo handle holidays
               Row(
@@ -150,15 +159,15 @@ Widget _getDailyMenuWidget(
         padding: EdgeInsets.only(bottom: 8),
       ),
       dailyMenuItems.isEmpty
-          ? _getEmptyMenuWidget()
+          ? _getEmptyMenuWidget(context)
           : _getDailyMenuItemsWidget(dailyMenuItems),
     ],
     crossAxisAlignment: CrossAxisAlignment.start,
   );
 }
 
-Widget _getEmptyMenuWidget() {
-  return Text('Nie sú stravy z danej kategórie.');
+Widget _getEmptyMenuWidget(BuildContext context) {
+  return Text(AppLocalizations.of(context)!.dailyMenuSection_NoDishes_Text);
 }
 
 Widget _getDailyMenuItemsWidget(List<DailyMenu> dailyMenuItems) {
@@ -186,21 +195,24 @@ Widget _getDailyMenuItemsWidget(List<DailyMenu> dailyMenuItems) {
   );
 }
 
-Widget _getNotFoundWidget(Establishment establishment) {
+Widget _getNotFoundWidget(BuildContext context, Establishment establishment) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 24),
     child: Column(
       children: [
         Padding(
           padding: EdgeInsets.only(bottom: 16),
-          child: Text('Nepodarilo sa nájsť menu.'),
+          child: Text(
+              AppLocalizations.of(context)!.dailyMenuSection_NoLunchMenu_Text),
         ),
         TextButton(
-          child: const Text('Denné menu na stránke podniku'),
+          child: Text(
+              AppLocalizations.of(context)!.establishment_LunchMenuWeb_Button),
           onPressed: () => launchURL(establishment.dailyMenuUrl),
         ),
         TextButton(
-          child: const Text('Stránka podniku'),
+          child: Text(AppLocalizations.of(context)!
+              .establishment_EstablishmentWeb_Button),
           onPressed: () => launchURL(establishment.websiteUrl),
         ),
       ],
