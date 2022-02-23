@@ -42,6 +42,7 @@
   "sidebar_Title": "Nastavenia",
   "sidebar_DisplayedRestaurants_ListTitle": "Zobrazené reštaurácie",
   "sidebar_FurtherOptions_ListTitle": "Ďalšie možnosti",
+  "sidebar_ThemeOptions_ListTitle": "Vzhľad",
   "sidebar_ThemeSwitch_WhiteThemeOption": "Paint it white",
   "sidebar_ThemeSwitch_BlackThemeOption": "Paint it black",
   "sidebar_ThemeSwitch_ErniThemeOption": "Paint it erni",

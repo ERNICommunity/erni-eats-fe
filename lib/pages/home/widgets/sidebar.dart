@@ -92,7 +92,7 @@ class _HomeSidebarWidgetState extends State<HomeSidebarWidget> {
                   .sidebar_FurtherOptions_ListTitle),
             ),
             ListView(
-              children: <Widget>[
+              children: <ListTile>[
                 ListTile(
                   leading: Icon(
                     Icons.favorite,
@@ -115,7 +115,16 @@ class _HomeSidebarWidgetState extends State<HomeSidebarWidget> {
                       Text(AppLocalizations.of(context)!.gitHubLinkPage_Title),
                   onTap: () => _navigateToGitHubLinksPage(context),
                 ),
-                // TODO separate group with Theme title
+              ],
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+            ),
+            ListTile(
+              title: Text(AppLocalizations.of(context)!
+                  .sidebar_ThemeOptions_ListTitle),
+            ),
+            ListView(
+              children: <ListTile>[
                 ListTile(
                   leading: Icon(
                     Icons.format_paint_outlined,
